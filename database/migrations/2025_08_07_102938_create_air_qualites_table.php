@@ -9,11 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('air_qualites', function (Blueprint $table) {
             $table->id();
+            $table->date('date_mesure');
+            $table->unsignedSmallInteger('aqi');// 0-500 max
+            $table->decimal('pm2_5', 5,2); // Précision critique santé (particules fines)
+            $table->decimal('pm10', 5,2); // Précision critique santé (particules grossières)
+            $table->unsignedSmallInteger('pollen')->nullable();
+            $table->string('localite');          
             $table->timestamps();
+
+            //index pour les performances
+            $table->index(['date_mesure', 'localite']);
         });
     }
 
