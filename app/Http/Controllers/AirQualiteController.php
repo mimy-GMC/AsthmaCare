@@ -35,7 +35,7 @@ class AirQualiteController extends Controller
             'date' => 'required|date',
             'aqi' => 'required|integer|min:0|max:500',
             'pollen' => 'nullable|integer|min:0',
-            'pm25' => 'nullable|numeric|min:0',
+            'pm2.5' => 'nullable|numeric|min:0',
             'pm10' => 'nullable|numeric|min:0',
             'localite' => 'required|string|max:255',
         ]);
@@ -57,7 +57,7 @@ class AirQualiteController extends Controller
             'date' => 'required|date',
             'aqi' => 'required|integer|min:0|max:500',
             'pollen' => 'nullable|integer|min:0',
-            'pm25' => 'nullable|numeric|min:0',
+            'pm2.5' => 'nullable|numeric|min:0',
             'pm10' => 'nullable|numeric|min:0',
             'localite' => 'required|string|max:255',
         ]);
