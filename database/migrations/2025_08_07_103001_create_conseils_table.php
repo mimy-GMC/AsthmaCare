@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('categorie'); // Catégorie du conseil pour filtrer ou organiser l'information (ex: sport, environnement, médication,...)
             $table->text('contenu'); // message pour être actionnable ou personnalisé
             $table->unsignedTinyInteger('niveau_alerte')->comment('0-1:Information, 2-3:Attention, 4-5:Vigilance, 6-10:Alerte');
+            $table->foreignId('user_id')->constrained('patients')->onDelete('cascade');
             $table->timestamps();
         });
     }

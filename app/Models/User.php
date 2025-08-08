@@ -42,4 +42,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function symptomes()
+    {
+    return $this->hasMany(Symptome::class);
+    }
+
+    public function qualitesAir()
+    {
+        return $this->hasMany(AirQualite::class);
+    }
+
+    public function conseils()
+    {
+        return $this->hasMany(Conseil::class);
+    }
+
 }
