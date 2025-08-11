@@ -10,7 +10,7 @@
 
     <!-- Date et heure -->
     <div>
-        <label for="date" class="block font-medium">Date et heure</label>
+        <label for="date_debut" class="block font-medium">Date et heure</label>
         <input type="datetime-local" id="date_debut" name="date_debut"
                class="mt-1 p-2 border rounded w-full">
     </div>
@@ -23,18 +23,18 @@
     </div>
 
     <!-- Déclencheurs -->
-        <div class="mb-4">
-            <label class="block font-medium">Déclencheurs</label>
-            <div class="space-y-2">
-                @foreach(['pollution', 'pollen', 'froid', 'exercice', 'stress', 'autre'] as $declencheurs)
-                <label class="inline-flex items-center">
-                    <input type="checkbox" name="declencheurs[]" value="{{ $declencheurs }}" 
-                           class="rounded text-blue-500">
-                    <span class="ml-2">{{ ucfirst($declencheurs) }}</span>
-                </label>
-                @endforeach
-            </div>
+    <div class="mb-4">
+        <label class="block font-medium">Déclencheurs</label>
+        <div class="space-y-2">
+            @foreach(['pollution', 'pollen', 'froid', 'exercice', 'stress', 'autre'] as $declencheur)
+            <label class="inline-flex items-center">
+                <input type="checkbox" name="declencheurs[]" value="{{ $declencheur }}" 
+                       class="rounded text-blue-500">
+                <span class="ml-2">{{ ucfirst($declencheur) }}</span>
+            </label>
+            @endforeach
         </div>
+    </div>
 
     <!-- Commentaires -->
     <div>
@@ -53,4 +53,20 @@
 <p id="successMessage" class="hidden mt-4 text-green-600 font-semibold">
     Symptôme ajouté avec succès !
 </p>
+
+<!-- 📌 Liste des entrées récentes -->
+<hr class="my-6">
+<h3 class="text-xl font-semibold mb-4">Mes entrées récentes</h3>
+<table class="w-full bg-white shadow rounded-lg overflow-hidden">
+    <thead class="bg-gray-100">
+        <tr>
+            <th class="p-3 text-left">Date début</th>
+            <th class="p-3 text-left">Intensité</th>
+            <th class="p-3 text-left">Déclencheurs</th>
+            <th class="p-3 text-left">Commentaires</th>
+            <th class="p-3">Actions</th>
+        </tr>
+    </thead>
+    <tbody id="symptomsTable"></tbody>
+</table>
 @endsection
