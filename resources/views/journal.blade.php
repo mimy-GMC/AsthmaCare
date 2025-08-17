@@ -54,9 +54,9 @@
     Symptôme ajouté avec succès !
 </p>
 
-<!-- 📌 Liste des entrées récentes -->
+<!-- 📌 Liste des récentes crises -->
 <hr class="my-6">
-<h3 class="text-xl font-semibold mb-4">Mes entrées récentes</h3>
+<h3 class="text-xl font-semibold mb-4">Mes récentes crises</h3>
 <table class="w-full bg-white shadow rounded-lg overflow-hidden">
     <thead class="bg-gray-100">
         <tr>
