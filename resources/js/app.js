@@ -100,14 +100,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     await axios.put(`/api/symptomes/${form.dataset.editId}`, data);
                     delete form.dataset.editId;
                 } else {
-                    // jout
+                    // ajout
                     await axios.post('/api/symptomes', data);
                 }
+
+                // Message succès auto-masqué
                 message.classList.remove('hidden');
+                setTimeout(() => {
+                    message.classList.add('hidden');
+                }, 5000);
+                
                 form.reset();
                 loadSymptoms();
             } catch (error) {
-                console.error('Erreur ajout/modif', error);
+                if (error.response && error.response.status === 403) {
+                    alert('Session expirée. Veuillez vous reconnecter.');
+                    window.location.href = '/login';
+                } else {
+                    console.error('Erreur ajout/modif', error);
+                    alert("Une erreur est survenue. Vérifie ta saisie.");
+                }
             }
         });
     }
