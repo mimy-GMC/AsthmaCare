@@ -8,6 +8,9 @@ Alpine.start();
 // Import d'Axios
 import axios from 'axios';
 
+// Import des graphiques
+import { loadCharts } from './charts';
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('symptomForm');
     const message = document.getElementById('successMessage');
@@ -111,4 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Charger les symptômes dès que la page est prête
     loadSymptoms();
+
+    // Charger les graphiques seulement si on est sur la page historique
+    if (document.getElementById('chartCrises')) {
+        loadCharts();
+    }
 });

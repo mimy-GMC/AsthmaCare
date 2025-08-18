@@ -17,7 +17,7 @@ return new class extends Migration
         $table->unsignedTinyInteger('intensite'); // 1 à 10
         $table->json('declencheurs')->nullable(); // pollen, pollution, etc.
         $table->text('commentaires')->nullable(); // description des symptômes
-        $table->foreignId('user_id')->constrained('patients')->onDelete('cascade');
+        $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         $table->timestamps();
     });
 }
