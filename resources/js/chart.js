@@ -56,14 +56,7 @@ export async function loadCharts() {
                 }]
             }
         });
-
-        new Chart(document.getElementById('chartDeclencheurs'), {
-            type: 'pie',
-            data: {
-                labels: Object.keys(triggersCount),
-                datasets: [{ data: Object.values(triggersCount), backgroundColor: ['#f87171', '#60a5fa', '#34d399'] }]
-            }
-        });
+        
     } catch (error) {
         console.error("Erreur chargement graphiques", error);
     }
