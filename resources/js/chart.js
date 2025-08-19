@@ -2,6 +2,14 @@ import axios from 'axios';
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
+// Générateur de couleurs dynamiques
+function generateColors(n) {
+    return Array.from({ length: n }, (_, i) => {
+        const hue = (i * 360 / n) % 360; // répartir les couleurs sur le cercle chromatique
+        return `hsl(${hue}, 70%, 60%)`; // teintes pastel
+    });
+}
+
 export async function loadCharts() {
     try {
         const res = await axios.get('/api/symptomes');
@@ -24,7 +32,7 @@ export async function loadCharts() {
             type: 'line',
             data: {
                 labels: dates,
-                datasets: [{ label: 'Intensité', data: intensities, borderColor: 'rgba(255,99,132,1)', fill: false }]
+                datasets: [{ label: 'Intensité', data: intensities, borderColor: 'rgba(255,99,132,1)', fill: false, tension: 0.3 }]
             }
         });
 
@@ -34,6 +42,20 @@ export async function loadCharts() {
             acc[trigger] = (acc[trigger] || 0) + 1;
             return acc;
         }, {});
+
+        const triggerLabels = Object.keys(triggersCount);
+        const triggerValues = Object.values(triggersCount);
+
+        new Chart(document.getElementById('chartDeclencheurs'), {
+            type: 'pie',
+            data: {
+                labels: triggerLabels,
+                datasets: [{
+                    data: triggerValues,
+                    backgroundColor: generateColors(triggerLabels.length) // couleurs dynamiques
+                }]
+            }
+        });
 
         new Chart(document.getElementById('chartDeclencheurs'), {
             type: 'pie',
