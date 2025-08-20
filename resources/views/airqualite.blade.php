@@ -3,13 +3,13 @@
 @section('title', 'Qualité de l\'air')
 
 @section('content')
-<h2 class="text-2xl font-semibold mb-6">Qualité de l'air</h2>
+<h2 class="text-2xl font-semibold mb-6">Suivi de la Qualité de l'air</h2>
 
 <!-- Formulaire ajout mesure -->
 <form id="airForm" class="bg-white p-6 rounded-lg shadow-md space-y-4">
     @csrf
 
-    <!-- Date -->
+    <!-- Date de la mesure -->
     <div>
         <label for="date_mesure" class="block font-medium">Date de mesure</label>
         <input type="date" id="date_mesure" name="date_mesure"
@@ -64,11 +64,11 @@
 
 <!-- Liste -->
 <hr class="my-6">
-<h3 class="text-xl font-semibold mb-4">Mesures récentes</h3>
+<h3 class="text-xl font-semibold mb-4">Historique Qualité de l'air</h3>
 <table class="w-full bg-white shadow rounded-lg overflow-hidden">
     <thead class="bg-gray-100">
         <tr>
-            <th class="p-3 text-left">Date</th>
+            <th class="p-3 text-left">Date de mesure</th>
             <th class="p-3 text-left">AQI</th>
             <th class="p-3 text-left">PM2.5</th>
             <th class="p-3 text-left">PM10</th>

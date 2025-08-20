@@ -3,7 +3,7 @@
 @section('title', 'Conseils Santé')
 
 @section('content')
-<h2 class="text-2xl font-semibold mb-6">Conseils Santé</h2>
+<h2 class="text-2xl font-semibold mb-6">Conseils santé et Préventions</h2>
 
 <!-- Formulaire ajout conseil -->
 <form id="conseilForm" class="bg-white p-6 rounded-lg shadow-md space-y-4">
