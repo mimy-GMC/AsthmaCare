@@ -139,6 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSymptoms();
 
 
+
                             //--- AIR QUALITÉ ---
     //Chargement au démarrage
     async function loadAir() {
@@ -212,21 +213,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (airForm) {
         airForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const airForm = new airFormData(airForm);
+            const formData = new FormData(airForm);
 
             const data = {
-                date_mesure: airFormData.date_mesure.value,
-                aqi: parseInt(airFormData.aqi.value),
-                pm2_5: parseFloat(airFormData.pm2_5.value),
-                pm10: parseFloat(airFormData.pm10.value),
-                pollen: parseInt(airFormData.pollen.value),
-                localite: airFormData.localite.value,
+                date_mesure: formData.get('date_mesure'),
+                aqi: parseInt(formData.get('aqi')),
+                pm2_5: parseFloat(formData.get('pm2_5')),
+                pm10: parseFloat(formData.get('pm10')),
+                pollen: parseInt(formData.get('pollen')),
+                localite: formData.get('localite'),
             };
 
             try {
                 if (airForm.dataset.editId) {
                     // édition
-                    await axios.put(`/api//air-qualites/${airForm.dataset.editId}`, data);
+                    await axios.put(`/api/air-qualites/${airForm.dataset.editId}`, data);
                     delete airForm.dataset.editId;
                 } else {
                     // ajout
@@ -242,19 +243,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 airForm.reset();
                 loadAir();
             } catch (error) {
-                if (error.response && error.response.status === 403) {
-                    alert('Session expirée. Veuillez vous reconnecter.');
-                    window.location.href = '/login';
-                } else {
-                    console.error('Erreur ajout/modif', error);
-                    alert("Une erreur est survenue. Vérifie ta saisie.");
-                }
+                console.error('Erreur ajout/modif', error);
+                alert("Une erreur est survenue. Vérifie ta saisie.");
             }
         });
     }
 
     // Charger la qualité de l'air dès que la page est prête
     loadAir();
+
 
 
                             //--- CONSEILS ---
@@ -324,21 +321,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (conseilForm) {
         conseilForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const conseilFormData = new FormData(conseilForm);
+            const formData = new FormData(conseilForm);
 
             const data = {
-                categorie: conseilFormData.categorie.value,
-                contenu: conseilFormData.contenu.value,
-                niveau_alerte: parseInt(conseilFormData.niveau_alerte.value),
+                categorie: formData.get('categorie'),
+                contenu: formData.get('contenu'),
+                niveau_alerte: parseInt(formData.get('niveau_alerte')),
             };
 
             try {
             	if (conseilForm.dataset.editId) {
-  		    // édition
+  		            // édition
                     await axios.put(`/api/conseils/${conseilForm.dataset.editId}`, data);
                     delete conseilForm.dataset.editId;
             	} else {
-		    //ajout
+		            //ajout
                     await axios.post('/api/conseils', data);
                 }
 
@@ -348,14 +345,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 conseilForm.reset();
                 loadConseils();
-	     } catch (error) {
-                if (error.response && error.response.status === 403) {
-                    alert('Session expirée. Veuillez vous reconnecter.');
-                    window.location.href = '/login';
-                } else {
-                    console.error('Erreur ajout/modif', error);
-                    alert("Une erreur est survenue. Vérifie ta saisie.");
-                }
+	        } catch (error) {
+                console.error('Erreur ajout/modif', error);
+                alert("Une erreur est survenue. Vérifie ta saisie.");
             }
         });
     }
@@ -366,4 +358,78 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('chartCrises')) {
         loadCharts();
     }
+
+
+
+                           // --- DASHBOARD ---
+    async function loadDashboard() {
+        try {
+            // Symptômes (3 derniers)
+            const symptRes = await axios.get('/api/symptomes');
+            const symptDiv = document.getElementById('dashboard-symptomes');
+            if (symptDiv) {
+                symptDiv.innerHTML = '';
+                symptRes.data.slice(0, 3).forEach(s => {
+                    const li = document.createElement('li');
+                    li.textContent = `${new Date(s.date_debut).toLocaleDateString()} - Intensité ${s.intensite}`;
+                    symptDiv.appendChild(li);
+                });
+            }
+
+            // Qualité de l’air (dernière mesure)
+            const airRes = await axios.get('/api/air-qualites');
+            const airDiv = document.getElementById('dashboard-airQualite');
+            if (airDiv && airRes.data.length > 0) {
+                const last = airRes.data[0];
+                airDiv.innerHTML = `
+                    <p><strong>AQI:</strong> ${last.aqi}</p>
+                    <p><strong>PM2.5:</strong> ${last.pm2_5}</p>
+                    <p><strong>Pollen:</strong> ${last.pollen}</p>
+                    <p><strong>Lieu:</strong> ${last.localite}</p>
+                `;
+            }
+
+            // Conseil (prendre le premier dispo)
+            const consRes = await axios.get('/api/conseils');
+            const consDiv = document.getElementById('dashboard-conseil');
+            if (consDiv && consRes.data.length > 0) {
+                const conseil = consRes.data[0];
+                consDiv.innerHTML = `
+                    <p class="font-medium">${conseil.categorie}</p>
+                    <p>${conseil.contenu}</p>
+                    <p class="text-xs text-gray-500">Niveau: ${conseil.niveau_alerte}</p>
+                `;
+            }
+
+            // Graphique rapide : nombre de crises par jour
+            if (document.getElementById('dashboardChart')) {
+                const ctx = document.getElementById('dashboardChart');
+                const counts = {};
+                symptRes.data.forEach(s => {
+                    const day = new Date(s.date_debut).toLocaleDateString();
+                    counts[day] = (counts[day] || 0) + 1;
+                });
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: Object.keys(counts),
+                        datasets: [{
+                            label: 'Nombre de crises',
+                            data: Object.values(counts),
+                        }]
+                    }
+                });
+            }
+
+        } catch (error) {
+            console.error("Erreur dashboard", error);
+        }
+    }
+
+    // Lancer seulement si on est sur la page dashboard
+    if (document.getElementById('dashboard-symptomes')) {
+        loadDashboard();
+    }
+
 });
