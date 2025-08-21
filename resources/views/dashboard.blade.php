@@ -12,24 +12,24 @@
             <!-- Dernières crises -->
             <div class="bg-white shadow-md rounded-2xl p-6">
                 <h3 class="text-lg font-bold text-gray-700 mb-3">Dernières crises</h3>
-                <div id="dashboard-symptomes" class="text-gray-600">
-                    <p class="text-sm">Chargement...</p>
-                </div>
+                <ul id="dashboard-symptomes" class="space-y-2 text-sm text-gray-600">
+                    <li>Chargement...</li>
+                </ul>
             </div>
 
             <!-- Qualité de l'air -->
             <div class="bg-white shadow-md rounded-2xl p-6">
                 <h3 class="text-lg font-bold text-gray-700 mb-3">Qualité de l’air</h3>
-                <div id="dashboard-airQualite" class="text-gray-600">
-                    <p class="text-sm">Chargement...</p>
+                <div id="dashboard-airQualite" class="space-y-2 text-sm text-gray-600">
+                    <p>Chargement...</p>
                 </div>
             </div>
 
             <!-- Conseils -->
             <div class="bg-white shadow-md rounded-2xl p-6">
                 <h3 class="text-lg font-bold text-gray-700 mb-3">Conseil du jour</h3>
-                <div id="dashboard-conseil" class="text-gray-600">
-                    <p class="text-sm">Chargement...</p>
+                <div id="dashboard-conseil" class="space-y-2 text-sm text-gray-600">
+                    <p>Chargement...</p>
                 </div>
             </div>
         </div>

@@ -370,8 +370,19 @@ document.addEventListener('DOMContentLoaded', () => {
             if (symptDiv) {
                 symptDiv.innerHTML = '';
                 symptRes.data.slice(0, 3).forEach(s => {
+                    const badgeClass = s.intensite >= 7 ? "bg-red-100 text-red-700 border-red-300" :
+                        s.intensite >= 4 ? "bg-yellow-100 text-yellow-700 border-yellow-300" :
+                            "bg-green-100 text-green-700 border-green-300"; 
+
                     const li = document.createElement('li');
-                    li.textContent = `${new Date(s.date_debut).toLocaleDateString()} - Intensité ${s.intensite}`;
+                    li.innerHTML = `
+                        <span class="font-medium">
+                            ${new Date(s.date_debut).toLocaleDateString()}
+                        </span> 
+                        <span class="ml-2 inline-block px-2 py-0.5 text-xs rounded-full border ${badgeClass}"> 
+                            Intensité ${s.intensite}
+                        </span>
+                    `;
                     symptDiv.appendChild(li);
                 });
             }
@@ -381,8 +392,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const airDiv = document.getElementById('dashboard-airQualite');
             if (airDiv && airRes.data.length > 0) {
                 const last = airRes.data[0];
+                const aqiBadge = last.aqi >= 150 ? "bg-red-100 text-red-700 border-red-300" :
+                    last.aqi >= 100 ? "bg-yellow-100 text-yellow-700 border-yellow-300" :
+                        "bg-green-100 text-green-700 border-green-300"; 
+
                 airDiv.innerHTML = `
-                    <p><strong>AQI:</strong> ${last.aqi}</p>
+                    <p><strong>AQI:</strong> 
+                        <span class="ml-1 px-2 py-0.5 text-xs rounded-full border ${aqiBadge}">
+                            ${last.aqi}
+                        </span>
+                    </p>
                     <p><strong>PM2.5:</strong> ${last.pm2_5}</p>
                     <p><strong>Pollen:</strong> ${last.pollen}</p>
                     <p><strong>Lieu:</strong> ${last.localite}</p>
@@ -394,10 +413,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const consDiv = document.getElementById('dashboard-conseil');
             if (consDiv && consRes.data.length > 0) {
                 const conseil = consRes.data[0];
+                const levelClass = conseil.niveau_alerte >= 3 ? "bg-red-100 text-red-700 border-red-300" :
+                    conseil.niveau_alerte == 2 ? "bg-yellow-100 text-yellow-700 border-yellow-300" :
+                        "bg-green-100 text-green-700 border-green-300";
+
                 consDiv.innerHTML = `
-                    <p class="font-medium">${conseil.categorie}</p>
+                    <p class="font-semibold">
+                        ${conseil.categorie}
+                    </p>
                     <p>${conseil.contenu}</p>
-                    <p class="text-xs text-gray-500">Niveau: ${conseil.niveau_alerte}</p>
+                    <span class="inline-block mt-2 px-2 py-0.5 text-xs rounded-full border ${levelClass}">
+                        Niveau ${conseil.niveau_alerte}
+                    </span>
                 `;
             }
 
