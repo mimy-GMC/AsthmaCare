@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //Chargement au démarrage
     async function loadAir() {
         try {
-            const res = await axios.get('/api/airqualite');
+            const res = await axios.get('/api//air-qualites');
             airTable.innerHTML = '';
 
             res.data.forEach(airqualite => {
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.addEventListener('click', async () => {
                 if (confirm("Supprimer cette mesure ?")) {
                     try {
-                    	await axios.delete(`/api/airqualite/${btn.dataset.id}`);
+                    	await axios.delete(`/api//air-qualites/${btn.dataset.id}`);
                     	loadAir();
                     } catch (error) {
                         console.error('Erreur suppression', error);
@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.edit-air').forEach(btn => {
             btn.addEventListener('click', async () => {
                 try {
-                     const res = await axios.get(`/api/airqualite/${btn.dataset.id}`);
+                     const res = await axios.get(`/api/air-qualites/${btn.dataset.id}`);
                      const a = res.data;
                      airForm.date_mesure.value = a.date_mesure;
                      airForm.aqi.value = a.aqi;
@@ -226,11 +226,11 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 if (airForm.dataset.editId) {
                     // édition
-                    await axios.put(`/api/airqualite/${airForm.dataset.editId}`, data);
+                    await axios.put(`/api//air-qualites/${airForm.dataset.editId}`, data);
                     delete airForm.dataset.editId;
                 } else {
                     // ajout
-                    await axios.post('/api/airqualite', data);
+                    await axios.post('/api/air-qualites', data);
                 }
 
                 // Message succès auto-masqué
