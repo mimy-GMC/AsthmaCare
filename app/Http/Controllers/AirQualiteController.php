@@ -10,14 +10,14 @@ class AirQualiteController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Auth::user()->qualitesAir()->orderBy('date', 'desc');
+        $query = Auth::user()->qualitesAir()->orderBy('date_mesure', 'desc');
 
-        // Filtrage optionnel : localite, date, aqi_min, aqi_max
+        // Filtrage optionnel : localite, date_mesure, aqi_min, aqi_max
         if ($request->filled('localite')) {
             $query->where('localite', 'like', '%' . $request->localite . '%');
         }
-        if ($request->filled('date')) {
-            $query->whereDate('date', $request->date);
+        if ($request->filled('date_mesure')) {
+            $query->whereDate('date_mesure', $request->date_mesure);
         }
         if ($request->filled('aqi_min')) {
             $query->where('aqi', '>=', (int)$request->aqi_min);
@@ -32,10 +32,10 @@ class AirQualiteController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'date' => 'required|date',
+            'date_mesure' => 'required|date',
             'aqi' => 'required|integer|min:0|max:500',
             'pollen' => 'nullable|integer|min:0',
-            'pm2.5' => 'nullable|numeric|min:0',
+            'pm2_5' => 'nullable|numeric|min:0',
             'pm10' => 'nullable|numeric|min:0',
             'localite' => 'required|string|max:255',
         ]);
@@ -57,7 +57,7 @@ class AirQualiteController extends Controller
             'date' => 'required|date',
             'aqi' => 'required|integer|min:0|max:500',
             'pollen' => 'nullable|integer|min:0',
-            'pm2.5' => 'nullable|numeric|min:0',
+            'pm2_5' => 'nullable|numeric|min:0',
             'pm10' => 'nullable|numeric|min:0',
             'localite' => 'required|string|max:255',
         ]);

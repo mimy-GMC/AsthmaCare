@@ -68,7 +68,7 @@
 <table class="w-full bg-white shadow rounded-lg overflow-hidden">
     <thead class="bg-gray-100">
         <tr>
-            <th class="p-3 text-left">Date de mesure</th>
+            <th class="p-3 text-left">Date</th>
             <th class="p-3 text-left">AQI</th>
             <th class="p-3 text-left">PM2.5</th>
             <th class="p-3 text-left">PM10</th>
