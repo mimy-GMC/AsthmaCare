@@ -1,12 +1,12 @@
 <?php
-// app/Services/AirQualityService.php
+// app/Services/AirQualiteService.php
 
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
-class AirQualityService
+class AirQualiteService
 {
     protected $apiKey;
 
