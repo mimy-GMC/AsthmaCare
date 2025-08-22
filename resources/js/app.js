@@ -9,7 +9,7 @@ Alpine.start();
 import axios from 'axios';
 
 // Import des graphiques
-import { loadCharts } from './charts';
+import { loadCharts } from './chart';
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Gestion Symptômes ---
