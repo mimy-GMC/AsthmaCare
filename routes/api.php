@@ -18,6 +18,7 @@ use App\Http\Controllers\SymptomeController;
 use App\Http\Controllers\AirQualiteController;
 use App\Http\Controllers\ConseilController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExternalAirQualiteController;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
@@ -29,4 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('symptomes', SymptomeController::class);
     Route::apiResource('air-qualites', AirQualiteController::class);
     Route::apiResource('conseils', ConseilController::class);
+
+    // Route pour l'API externe de qualité d'air
+    Route::get('/external/air-qualites', [ExternalAirQualiteController::class, 'getAirQualite']);
 });
