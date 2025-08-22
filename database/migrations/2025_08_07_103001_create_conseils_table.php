@@ -18,6 +18,9 @@ return new class extends Migration
             $table->unsignedTinyInteger('niveau_alerte')->comment('0-1:Information, 2-3:Attention, 4-5:Vigilance, 6-10:Alerte');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
+
+            // pour filtrer rapidement selon alerte
+            $table->index('niveau_alerte');
         });
     }
 

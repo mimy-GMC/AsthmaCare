@@ -19,13 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Gestion Qualité de l'air ---
     const airForm = document.getElementById('airForm');
-    const airMessage = document.getElementById('successMessageAir');
+    const airMessage = document.getElementById('airSuccessMessage');
     const airTable = document.getElementById('airTable');
 
     // --- Gestion Conseils ---
     const conseilForm = document.getElementById('conseilForm');
-    const conseilMessage = document.getElementById('successMessageConseil');
-    const conseilTable = document.getElementById('conseilTable');
+    const conseilMessage = document.getElementById('conseilSuccessMessage');
+    const conseilTable = document.getElementById('conseilsTable');
 
     //Charger la liste au démarrage
     async function loadSymptoms() {
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //Chargement au démarrage
     async function loadAir() {
         try {
-            const res = await axios.get('/api//air-qualites');
+            const res = await axios.get('/api/air-qualites');
             airTable.innerHTML = '';
 
             res.data.forEach(airqualite => {
@@ -171,18 +171,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    
     //Supprimer une mesure
     function attachAirDelete() {
         document.querySelectorAll('.delete-air').forEach(btn => {
             btn.addEventListener('click', async () => {
                 if (confirm("Supprimer cette mesure ?")) {
                     try {
-                    	await axios.delete(`/api//air-qualites/${btn.dataset.id}`);
+                    	await axios.delete(`/api/air-qualites/${btn.dataset.id}`);
                     	loadAir();
                     } catch (error) {
                         console.error('Erreur suppression', error);
-		    }
+		            }
                 }
             });
         });

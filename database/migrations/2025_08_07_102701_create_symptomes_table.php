@@ -9,16 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
 {
     Schema::create('symptomes', function (Blueprint $table) {
         $table->id();
-        $table->date('date_debut');
+        $table->dateTime('date_debut'); // date + heure exacte de la crise
         $table->unsignedTinyInteger('intensite'); // 1 à 10
         $table->json('declencheurs')->nullable(); // pollen, pollution, etc.
         $table->text('commentaires')->nullable(); // description des symptômes
         $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         $table->timestamps();
+
+        $table->index(['user_id', 'date_debut']);
     });
 }
 

@@ -26,26 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
     
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    // Symptomes
-    Route::get('/symptomes', [SymptomeController::class, 'index']);
-    Route::post('/symptomes', [SymptomeController::class, 'store']);
-    Route::get('/symptomes/{id}', [SymptomeController::class, 'show']);
-    Route::put('/symptomes/{id}', [SymptomeController::class, 'update']);
-    Route::delete('/symptomes/{id}', [SymptomeController::class, 'destroy']);
-
-    // AirQualite
-    Route::get('/air-qualites', [AirQualiteController::class, 'index']);
-    Route::post('/air-qualites', [AirQualiteController::class, 'store']);
-    Route::get('/air-qualites/{id}', [AirQualiteController::class, 'show']);
-    Route::put('/air-qualites/{id}', [AirQualiteController::class, 'update']);
-    Route::delete('/air-qualites/{id}', [AirQualiteController::class, 'destroy']);
-
-    // Conseils
-    Route::get('/conseils', [ConseilController::class, 'index']);
-    Route::post('/conseils', [ConseilController::class, 'store']);
-    Route::get('/conseils/{id}', [ConseilController::class, 'show']);
-    Route::put('/conseils/{id}', [ConseilController::class, 'update']);
-    Route::delete('/conseils/{id}', [ConseilController::class, 'destroy']);
+    Route::apiResource('symptomes', SymptomeController::class);
+    Route::apiResource('air-qualites', AirQualiteController::class);
+    Route::apiResource('conseils', ConseilController::class);
 });
-
-

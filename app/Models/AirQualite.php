@@ -16,7 +16,6 @@ class AirQualite extends Model
         'pm2_5',
         'pm10',
         'localite',
-        'user_id'
     ];
 
     // Accesseur personnalisé pour l'interprétation de l'AQI

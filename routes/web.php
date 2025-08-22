@@ -8,24 +8,30 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/historique', function () {
-    return view('historique');
-})->name('historique');
-
-
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
-// Ajout de nos vues principales
-Route::view('/journal', 'journal');
-Route::view('/airqualite', 'airqualite');
-Route::view('/conseils', 'conseils');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/historique', function () {
+        return view('historique');
+    })->name('historique');
+
+    Route::get('/journal', function () {
+        return view('journal');
+    })->name('journal');
+
+    Route::get('/air-qualite', function () {
+        return view('airqualite');
+    })->name('airqualite');
+
+    Route::get('/conseils', function () {
+        return view('conseils');
+    })->name('conseils');
+});
 
 require __DIR__.'/auth.php';

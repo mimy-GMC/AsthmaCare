@@ -72,6 +72,9 @@ class SymptomeController extends Controller
         $symptome = Auth::user()->symptomes()->findOrFail($id);
         $symptome->delete();
 
-        return response()->json(['message' => 'Symptôme supprimé avec succès']);
+        return response()->json([
+            'success' => true,
+            'message' => 'Symptôme supprimé avec succès 🗑️'
+        ], 200);
     }
 }

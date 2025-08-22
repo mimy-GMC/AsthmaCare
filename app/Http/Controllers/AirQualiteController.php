@@ -54,7 +54,7 @@ class AirQualiteController extends Controller
         $record = Auth::user()->qualitesAir()->findOrFail($id);
 
         $validated = $request->validate([
-            'date' => 'required|date',
+            'date_mesure' => 'required|date',
             'aqi' => 'required|integer|min:0|max:500',
             'pollen' => 'nullable|integer|min:0',
             'pm2_5' => 'nullable|numeric|min:0',
