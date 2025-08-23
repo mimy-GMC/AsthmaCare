@@ -19,18 +19,21 @@ use App\Http\Controllers\AirQualiteController;
 use App\Http\Controllers\ConseilController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExternalAirQualiteController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
+// Routes publiques (Breeze controllers pour register/login)
+Route::post('/register', [RegisteredUserController::class, 'store']);
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
+// Routes protégées par Sanctum
 Route::middleware('auth:sanctum')->group(function () {
-    
-    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 
     Route::apiResource('symptomes', SymptomeController::class);
     Route::apiResource('air-qualites', AirQualiteController::class);
     Route::apiResource('conseils', ConseilController::class);
 
-    // Route pour l'API externe de qualité d'air
     Route::get('/external/air-qualites', [ExternalAirQualiteController::class, 'getAirQualite']);
+    Route::get('/conseils-personnalises', [ConseilController::class, 'getConseilsPersonnalises']);
 });

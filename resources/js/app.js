@@ -14,9 +14,106 @@ import { loadCharts } from './chart';
 // Imports map
 import { initMap, addPollutionLayer } from './map';
 
-document.addEventListener('DOMContentLoaded', () => {
+// ==================== CONFIGURATION AUTHENTIFICATION API ====================
+// Configuration Axios pour inclure le token
+axios.interceptors.request.use(config => {
+    const token = localStorage.getItem('sanctum_token');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+        config.headers.Accept = 'application/json';
+    }
+    return config;
+});
 
-                        // --- * DOM Elements * ---
+// Gestion des erreurs d'authentification
+axios.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.response?.status === 401 || error.response?.status === 419) {
+            localStorage.removeItem('sanctum_token');
+            window.location.href = '/login';
+        }
+        return Promise.reject(error);
+    }
+);
+
+// Fonction de login API
+async function loginAPI(email, password) {
+    try {
+        // D'abord récupérer le cookie CSRF
+        await axios.get('/sanctum/csrf-cookie');
+        
+        const response = await axios.post('/api/login', {
+            email,
+            password
+        });
+        
+        if (response.status === 200) {
+            localStorage.setItem('sanctum_token', response.data.token);
+            return true;
+        }
+    } catch (error) {
+        console.error('Login error', error);
+        return false;
+    }
+}
+
+// Fonction de logout API
+async function logoutAPI() {
+    try {
+        await axios.post('/api/logout');
+    } catch (error) {
+        console.error('Logout error', error);
+    } finally {
+        localStorage.removeItem('sanctum_token');
+        window.location.href = '/';
+    }
+}
+
+// Vérifier si l'utilisateur est connecté
+function isAuthenticated() {
+    return !!localStorage.getItem('sanctum_token');
+}
+
+// Rediriger si non connecté
+function requireAuth() {
+    if (!isAuthenticated()) {
+        window.location.href = '/login';
+        return false;
+    }
+    return true;
+}
+
+// ==================== INITIALISATION ====================
+
+// Au chargement, vérifier l'authentification
+if (!isAuthenticated() && !window.location.pathname.includes('/login') && 
+    !window.location.pathname.includes('/register') && window.location.pathname !== '/') {
+    window.location.href = '/login';
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Vérification d'authentification pour les pages protégées
+    const protectedPages = ['/dashboard', '/journal', '/historique', '/air-qualite', '/conseils', '/carte'];
+    if (protectedPages.includes(window.location.pathname) && !isAuthenticated()) {
+        window.location.href = '/login';
+        return;
+    }
+
+    // ==================== GESTION DE LA NAVIGATION ====================
+    
+    // Gestion du logout
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            await logoutAPI();
+        });
+    }
+
+    // ==================== ELEMENTS DU DOM ====================
+    
     // --- Gestion Symptômes ---
     const form = document.getElementById('symptomForm');
     const message = document.getElementById('successMessage');
@@ -32,8 +129,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const conseilMessage = document.getElementById('conseilSuccessMessage');
     const conseilTable = document.getElementById('conseilsTable');
 
-                        // --- FONCTIONS SYMPTÔMES ---
+    // ==================== FONCTIONS SYMPTÔMES ====================    
     async function loadSymptoms() {
+        if (!requireAuth()) return;
+        
         try {
             const res = await axios.get('/api/symptomes');
             tableBody.innerHTML = ''; // vider avant de recharger
@@ -57,6 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
             attachEditEvents();
         } catch (error) {
             console.error('Erreur de chargement des symptômes', error);
+            handleAuthError(error);
         }
     }
 
@@ -70,6 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         loadSymptoms(); // rafraîchir la table
                     } catch (error) {
                         console.error('Erreur suppression', error);
+                        handleAuthError(error);
                     }
                 }
             });
@@ -92,6 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     form.dataset.editId = s.id;
                 } catch (error) {
                     console.error('Erreur édition', error);
+                    handleAuthError(error);
                 }
             });
         });
@@ -101,6 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
+            if (!requireAuth()) return;
             const formData = new FormData(form);
 
             const data = {
@@ -129,23 +232,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 form.reset();
                 loadSymptoms();
             } catch (error) {
-                if (error.response && error.response.status === 403) {
-                    alert('Session expirée. Veuillez vous reconnecter.');
-                    window.location.href = '/login';
-                } else {
-                    console.error('Erreur ajout/modif', error);
-                    alert("Une erreur est survenue. Vérifie ta saisie.");
-                }
+                console.error('Erreur ajout/modif', error);
+                handleAuthError(error);                  
             }
         });
     }
 
-    // Charger les symptômes dès que la page est prête
-    loadSymptoms();
 
-
-                        // --- FONCTIONS AIR QUALITÉ LOCALE --- 
+    // ==================== FONCTIONS AIR QUALITÉ ====================
     async function loadAir() {
+        if (!requireAuth()) return;
+
         try {
             const res = await axios.get('/api/air-qualites');
             airTable.innerHTML = '';
@@ -171,6 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
             attachAirEdit();
         } catch (error) {
             console.error("Erreur chargement qualité air", error);
+            handleAuthError(error);
         }
     }
     
@@ -251,48 +349,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Charger la qualité de l'air dès que la page est prête
-    loadAir();
 
-
-                        // --- FONCTIONS AIR QUALITÉ EXTERNE ---
-    async function fetchExternalAir(lat, lon){
-        try {
-            const res = await axios.get(`/api/external/air-qualites?lat=${lat}&lon=${lon}`);
-            const data = res.data;
-
-            document.getElementById("aqi").textContent = data.aqi ?? "-";
-            document.getElementById("pm25").textContent = data.pm2_5 ?? "-";
-            document.getElementById("pm10").textContent = data.pm10 ?? "-";
-        } catch(error) {
-            console.error("Erreur récupération AQI externe", error);
-            alert("Impossible de récupérer les données AQI externes");
-        }
-    }
-
-    // Événement du bouton
-    const externalBtn = document.getElementById("fetchExternalAir");
-    if(externalBtn){
-        externalBtn.addEventListener('click', ()=>{
-            const lat = parseFloat(document.getElementById("lat").value);
-            const lon = parseFloat(document.getElementById("lon").value);
-
-           if (!isNaN(lat) && !isNaN(lon)) {
-            fetchExternalAir(lat, lon);
-        } else {
-            alert("Latitude et longitude valides requises !");
-        }
-        });
-    }
-
-    // Optionnel : charger par défaut (ex: Paris)
-    fetchExternalAir(48.8566, 2.3522);
-
-
-                            //--- FONCTIONS CONSEILS ---
-
-    // Charger les conseils
+    // ==================== FONCTIONS CONSEILS ====================
     async function loadConseils() {
+        if (!requireAuth()) return;
+
         try {
             const res = await axios.get('/api/conseils');
             conseilTable.innerHTML = '';
@@ -315,6 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
             attachConseilEdit();
         } catch (error) {
             console.error("Erreur chargement conseils", error);
+            handleAuthError(error);
         }
     }
 
@@ -387,15 +449,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    loadConseils();
+
+    // ==================== FONCTIONS AIR QUALITÉ EXTERNE ====================
     
-    // Charger les graphiques seulement si on est sur la page historique
-    if (document.getElementById('chartCrises')) {
-        loadCharts();
+    async function fetchExternalAir(lat, lon){
+        if (!requireAuth()) return;
+        
+        try {
+            const res = await axios.get(`/api/external/air-qualites?lat=${lat}&lon=${lon}`);
+            const data = res.data;
+
+            document.getElementById("aqi").textContent = data.aqi ?? "-";
+            document.getElementById("pm25").textContent = data.pm2_5 ?? "-";
+            document.getElementById("pm10").textContent = data.pm10 ?? "-";
+        } catch(error) {
+            console.error("Erreur récupération AQI externe", error);
+            handleAuthError(error);
+        }
     }
+    
 
-
-                           // --- DASHBOARD ---
+    // ==================== DASHBOARD ====================
     async function loadDashboard() {
         try {
             // Symptômes (3 derniers)
@@ -488,13 +562,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Lancer seulement si on est sur la page dashboard
-    if (document.getElementById('dashboard-symptomes')) {
-        loadDashboard();
+
+    // ==================== FONCTION DE GESTION DES ERREURS AUTH ====================
+    
+    function handleAuthError(error) {
+        if (error.response?.status === 401 || error.response?.status === 419) {
+            localStorage.removeItem('sanctum_token');
+            window.location.href = '/login';
+        } else {
+            alert("Une erreur est survenue. Vérifie ta saisie.");
+        }
     }
 
-    // Ajouter cette fonction dans app.js
+
+    // ==================== CHARGEMENT DES DONNÉES ====================
+    
+    // Charger les données seulement si l'utilisateur est authentifié
+    if (isAuthenticated()) {
+        loadSymptoms();
+        loadAir();
+        loadConseils();
+        
+        // Charger les graphiques seulement si on est sur la page historique
+        if (document.getElementById('chartCrises')) {
+            loadCharts();
+        }
+
+        // Charger le dashboard
+        if (document.getElementById('dashboard-symptomes')) {
+            loadDashboard();
+        }
+
+        // Charger la carte
+        loadMap();
+    }
+
+    // ==================== FONCTION MAP ====================
     async function loadMap() {
+        if (!requireAuth()) return;
+
         if (document.getElementById('map')) {
             const map = initMap();
         
@@ -523,15 +629,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-    // Appeler loadMap()
-    loadMap();
+
+    function getCurrentPosition() {
+        return new Promise((resolve, reject) => {
+            if (!navigator.geolocation) {
+                reject(new Error('Géolocalisation non supportée'));
+            }
+            navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+    }
 });
 
-function getCurrentPosition() {
-    return new Promise((resolve, reject) => {
-        if (!navigator.geolocation) {
-            reject(new Error('Géolocalisation non supportée'));
-        }
-        navigator.geolocation.getCurrentPosition(resolve, reject);
-    });
-}
+
