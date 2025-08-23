@@ -15,7 +15,7 @@ class ExternalAirQualiteController extends Controller
 
     /**
      * Renvoie les données de qualité d'air pour les coordonnées fournies
-     * Route: GET /api/external/air-quality
+     * Route: GET /api/external/air-qualites
      */
     public function getAirQualite(Request $request)
     {

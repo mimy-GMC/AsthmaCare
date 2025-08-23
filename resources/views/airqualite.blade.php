@@ -12,7 +12,7 @@
     <!-- Date de la mesure -->
     <div>
         <label for="date_mesure" class="block font-medium">Date de mesure</label>
-        <input type="date" id="date_mesure" name="date_mesure"
+        <input type="datetime-local" id="date_mesure" name="date_mesure"
                class="mt-1 p-2 border rounded w-full">
     </div>
 

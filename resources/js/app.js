@@ -139,8 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSymptoms();
 
 
-
-                            //--- AIR QUALITÉ ---
+                            //--- AIR QUALITÉ Locale ---
     //Chargement au démarrage
     async function loadAir() {
         try {
@@ -252,7 +251,6 @@ document.addEventListener('DOMContentLoaded', () => {
     loadAir();
 
 
-
                             //--- CONSEILS ---
 
     // Charger les conseils
@@ -357,7 +355,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('chartCrises')) {
         loadCharts();
     }
-
 
 
                            // --- DASHBOARD ---
