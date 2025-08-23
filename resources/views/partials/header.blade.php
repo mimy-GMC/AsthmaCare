@@ -5,6 +5,7 @@
             <li><a href="{{ url('/dashboard') }}" class="hover:underline">Dashboard</a></li>
             <li><a href="{{ url('/journal') }}" class="hover:underline">Journal</a></li>
             <li><a href="{{ route('historique') }}" class="hover:underline">Historique</a></li>
+            <li><a href="{{ route('carte') }}" class="hover:underline">Carte</a></li>
         </ul>
     </nav>
 </header>
