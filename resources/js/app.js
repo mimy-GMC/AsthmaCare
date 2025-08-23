@@ -12,6 +12,8 @@ import axios from 'axios';
 import { loadCharts } from './chart';
 
 document.addEventListener('DOMContentLoaded', () => {
+
+                        // --- * DOM Elements * ---
     // --- Gestion Symptômes ---
     const form = document.getElementById('symptomForm');
     const message = document.getElementById('successMessage');
@@ -27,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const conseilMessage = document.getElementById('conseilSuccessMessage');
     const conseilTable = document.getElementById('conseilsTable');
 
-    //Charger la liste au démarrage
+                        // --- FONCTIONS SYMPTÔMES ---
     async function loadSymptoms() {
         try {
             const res = await axios.get('/api/symptomes');
@@ -139,8 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSymptoms();
 
 
-                            //--- AIR QUALITÉ Locale ---
-    //Chargement au démarrage
+                        // --- FONCTIONS AIR QUALITÉ LOCALE --- 
     async function loadAir() {
         try {
             const res = await axios.get('/api/air-qualites');
@@ -251,7 +252,41 @@ document.addEventListener('DOMContentLoaded', () => {
     loadAir();
 
 
-                            //--- CONSEILS ---
+                        // --- FONCTIONS AIR QUALITÉ EXTERNE ---
+    async function fetchExternalAir(lat, lon){
+        try {
+            const res = await axios.get(`/api/external/air-qualites?lat=${lat}&lon=${lon}`);
+            const data = res.data;
+
+            document.getElementById("aqi").textContent = data.aqi ?? "-";
+            document.getElementById("pm25").textContent = data.pm2_5 ?? "-";
+            document.getElementById("pm10").textContent = data.pm10 ?? "-";
+        } catch(error) {
+            console.error("Erreur récupération AQI externe", error);
+            alert("Impossible de récupérer les données AQI externes");
+        }
+    }
+
+    // Événement du bouton
+    const externalBtn = document.getElementById("fetchExternalAir");
+    if(externalBtn){
+        externalBtn.addEventListener('click', ()=>{
+            const lat = parseFloat(document.getElementById("lat").value);
+            const lon = parseFloat(document.getElementById("lon").value);
+
+           if (!isNaN(lat) && !isNaN(lon)) {
+            fetchExternalAir(lat, lon);
+        } else {
+            alert("Latitude et longitude valides requises !");
+        }
+        });
+    }
+
+    // Optionnel : charger par défaut (ex: Paris)
+    fetchExternalAir(48.8566, 2.3522);
+
+
+                            //--- FONCTIONS CONSEILS ---
 
     // Charger les conseils
     async function loadConseils() {
@@ -400,7 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </p>
                     <p><strong>PM2.5:</strong> ${last.pm2_5}</p>
                     <p><strong>Pollen:</strong> ${last.pollen}</p>
-                    <p><strong>Lieu:</strong> ${last.localite}</p>
+                    <p><strong>Localité:</strong> ${last.localite}</p>
                 `;
             }
 
