@@ -11,6 +11,9 @@ import axios from 'axios';
 // Import des graphiques
 import { loadCharts } from './chart';
 
+// Imports map
+import { initMap, addPollutionLayer } from './map';
+
 document.addEventListener('DOMContentLoaded', () => {
 
                         // --- * DOM Elements * ---
@@ -490,4 +493,45 @@ document.addEventListener('DOMContentLoaded', () => {
         loadDashboard();
     }
 
+    // Ajouter cette fonction dans app.js
+    async function loadMap() {
+        if (document.getElementById('map')) {
+            const map = initMap();
+        
+            try {
+                // Récupérer la position de l'utilisateur
+                const position = await getCurrentPosition();
+                map.setView([position.coords.latitude, position.coords.longitude], 13);
+            
+                // Charger les données de pollution
+                const res = await axios.get(`/api/external/air-qualites?lat=${position.coords.latitude}&lon=${position.coords.longitude}`);
+                addPollutionLayer(map, {
+                    ...res.data,
+                    lat: position.coords.latitude,
+                    lon: position.coords.longitude
+                });
+            
+            } catch (error) {
+                console.error("Erreur chargement carte", error);
+                // Position par défaut (Paris)
+                const res = await axios.get('/api/external/air-qualites?lat=48.8566&lon=2.3522');
+                addPollutionLayer(map, {
+                    ...res.data,
+                    lat: 48.8566,
+                    lon: 2.3522
+                });
+            }
+        }
+    }
+    // Appeler loadMap()
+    loadMap();
 });
+
+function getCurrentPosition() {
+    return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+            reject(new Error('Géolocalisation non supportée'));
+        }
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+}
