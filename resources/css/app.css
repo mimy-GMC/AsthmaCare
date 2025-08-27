@@ -2,6 +2,118 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================
+   Variables globales & thèmes
+=============================== */
+@layer base {
+    :root {
+        --primary: #2A7DE1;
+        --primary-dark: #1E5AAF;
+        --secondary: #4CAF50;
+        --accent: #FF9800;
+        --danger: #F44336;
+        --warning: #FFC107;
+        --info: #00BCD4;
+        --light: #F8F9FA;
+        --dark: #343A40;
+
+        --health-blue: #E3F2FD;
+        --health-green: #E8F5E9;
+        --health-orange: #FFF3E0;
+        --health-red: #FFEBEE;
+
+        --font-heading: 'Montserrat', sans-serif;
+        --font-body: 'Open Sans', sans-serif;
+    }
+
+    body {
+        font-family: var(--font-body);
+        background-color: #fafafa;
+    }
+}
+
+/* ============================
+   Composants personnalisés
+=============================== */
+@layer components {
+    .health-card {
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        border: none;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .health-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .health-alert-low {
+        background-color: var(--health-green);
+        border-left: 4px solid var(--secondary);
+    }
+
+    .health-alert-medium {
+        background-color: var(--health-orange);
+        border-left: 4px solid var(--warning);
+    }
+
+    .health-alert-high {
+        background-color: var(--health-red);
+        border-left: 4px solid var(--danger);
+    }
+
+    .aqi-indicator {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+    }
+
+    .aqi-good { background-color: #4CAF50; }
+    .aqi-moderate { background-color: #FFC107; }
+    .aqi-unhealthy-sensitive { background-color: #FF9800; }
+    .aqi-unhealthy { background-color: #F44336; }
+    .aqi-very-unhealthy { background-color: #9C27B0; }
+    .aqi-hazardous { background-color: #795548; }
+
+    .btn-health {
+        border-radius: 25px;
+        padding: 0.5rem 1.5rem;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+
+    .btn-health-primary {
+        background-color: var(--primary);
+        border-color: var(--primary);
+        color: white;
+    }
+
+    .btn-health-primary:hover {
+        background-color: var(--primary-dark);
+        border-color: var(--primary-dark);
+        transform: translateY(-2px);
+    }
+
+    .navbar-health {
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .health-icon {
+        color: var(--primary);
+        margin-right: 0.5rem;
+    }
+}
+
+/* ============================
+   Responsivité
+=============================== */
 @media (max-width: 768px) {
     table {
         display: block;
