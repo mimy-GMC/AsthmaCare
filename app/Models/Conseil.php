@@ -16,6 +16,10 @@ class Conseil extends Model
         'user_id'
     ];
 
+    protected $casts = [
+        'niveau_alerte' => 'integer',
+    ];
+
     // Accessor pour la couleur
     public function getCouleurAttribute()
     {
@@ -31,6 +35,12 @@ class Conseil extends Model
     public function scopeParNiveau($query, $niveau)
     {
         return $query->where('niveau_alerte', $niveau);
+    }
+
+    // Scope pour filtrer par niveau minimum
+    public function scopeAlerteMin($query, $min)
+    {
+        return $query->where('niveau_alerte', '>=', $min);
     }
 
     public function user()

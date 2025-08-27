@@ -18,8 +18,16 @@ class Symptome extends Model
     ];
 
     protected $casts = [
+        'date_debut' => 'datetime',
+        'intensite' => 'integer',
         'declencheurs' => 'array', // pour gérer le champ JSON comme tableau
     ];
+
+    // Scope pour récupérer les symptômes sévères
+    public function scopeSevere($query)
+    {
+        return $query->where('intensite', '>=', 7);
+    }
 
     public function user()
     {

@@ -57,4 +57,16 @@ class User extends Authenticatable
         return $this->hasMany(Conseil::class);
     }
 
+    // Dernière mesure de qualité de l'air
+    public function derniereQualiteAir()
+    {
+        return $this->qualitesAir()->latest('date_mesure')->first();
+    }
+
+    // Symptômes récents (ex : des 7 derniers jours)
+    public function symptomesRecents()
+    {
+        return $this->symptomes()->where('date_debut', '>=', now()->subDays(7))->get();
+    }
+
 }

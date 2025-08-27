@@ -16,6 +16,15 @@ class AirQualite extends Model
         'pm2_5',
         'pm10',
         'localite',
+        'user_id'
+    ];
+
+    protected $casts = [
+        'date_mesure' => 'datetime',
+        'aqi' => 'integer',
+        'pm2_5' => 'float',
+        'pm10' => 'float',
+        'pollen' => 'integer',
     ];
 
     // Accesseur personnalisé pour l'interprétation de l'AQI
@@ -29,6 +38,12 @@ class AirQualite extends Model
             $this->aqi <= 300 => 'Très malsain',
             default => 'Dangereux'
         };
+    }
+
+    // Scope pour filtrer par localité
+    public function scopeParLocalite($query, $localite)
+    {
+        return $query->where('localite', $localite);
     }
 
     public function user()
