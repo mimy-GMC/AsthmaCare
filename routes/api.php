@@ -22,7 +22,7 @@ use App\Http\Controllers\ExternalAirQualiteController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
-// Routes publiques (Breeze controllers pour register/login)
+// Routes publiques (avec Breeze controllers pour register/login)
 Route::post('/register', [RegisteredUserController::class, 'store']);
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 

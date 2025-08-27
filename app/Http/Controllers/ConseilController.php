@@ -126,4 +126,46 @@ class ConseilController extends Controller
             ], 500);
         }
     }
+
+    public function getConseilsPersonnalises(Request $request)
+    {
+        try {
+            $user = Auth::user();
+
+            // Récupérer le dernier symptôme de l'utilisateur
+            $dernierSymptome = $user->symptomes()->latest()->first();
+
+            // Niveau basé sur le symptôme (si existant)
+            $niveauSymptome = $dernierSymptome ? $dernierSymptome->intensite : 1;
+
+            // Récupérer la qualité de l’air via le contrôleur externe
+            $airQualiteController = new \App\Http\Controllers\ExternalAirQualiteController();
+            $donneesAir = $airQualiteController->getAirQualite($request);
+
+            // Niveau basé sur la qualité de l’air (par défaut = 1 si pas dispo)
+            $niveauAir = $donneesAir['data']['aqi'] ?? 1;
+
+            // Choisir le niveau le plus critique
+            $niveauFinal = max($niveauSymptome, $niveauAir);
+
+            // Récupérer les conseils adaptés à ce niveau
+            $conseils = Conseil::where('niveau_alerte', '<=', $niveauFinal)->get();
+
+            return response()->json([
+                'success' => true,
+                'niveau_utilise' => $niveauFinal,
+                'symptome' => $dernierSymptome,
+                'air_qualite' => $donneesAir,
+                'conseils' => $conseils
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erreur lors de la récupération des conseils personnalisés.',
+                'error' => config('app.debug') ? $e->getMessage() : null
+            ], 500);
+        }
+    }
+
+
 }
