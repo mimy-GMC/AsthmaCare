@@ -3,9 +3,10 @@
 @tailwind utilities;
 
 /* ============================
-   Variables globales & thèmes
+   Variables globales & thème santé
 =============================== */
 @layer base {
+    /* Couleurs et typographie */
     :root {
         --primary: #2A7DE1;
         --primary-dark: #1E5AAF;
@@ -21,107 +22,182 @@
         --health-green: #E8F5E9;
         --health-orange: #FFF3E0;
         --health-red: #FFEBEE;
+        --health-purple: #F3E5F5;
 
         --font-heading: 'Montserrat', sans-serif;
         --font-body: 'Open Sans', sans-serif;
+
+        --border-radius: 12px;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        --shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.1);
     }
 
+    /* Polices et fond global */
     body {
         font-family: var(--font-body);
-        background-color: #fafafa;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+        min-height: 100vh;
     }
+
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap');
 }
 
 /* ============================
-   Composants personnalisés
+   Composants santé personnalisés
 =============================== */
 @layer components {
+
+    /* Cartes */
     .health-card {
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
         border: none;
-        transition: transform 0.2s, box-shadow 0.2s;
+        transition: all 0.3s ease;
+        overflow: hidden;
     }
 
     .health-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow-hover);
     }
 
-    .health-alert-low {
-        background-color: var(--health-green);
-        border-left: 4px solid var(--secondary);
+    .health-card-header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: white;
+        padding: 1.5rem;
+        font-family: var(--font-heading);
+        font-weight: 600;
     }
 
-    .health-alert-medium {
-        background-color: var(--health-orange);
-        border-left: 4px solid var(--warning);
+    .health-card-body {
+        padding: 1.5rem;
     }
 
-    .health-alert-high {
-        background-color: var(--health-red);
-        border-left: 4px solid var(--danger);
+    .health-card-footer {
+        padding: 1rem 1.5rem;
+        border-top: 1px solid #e9ecef;
+        font-size: 0.875rem;
+        color: #6c757d;
+        display: flex;
+        justify-content: space-between;
     }
 
+    /* Boutons santé */
+    .btn-health {
+        border-radius: 25px;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .btn-health-primary {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: white;
+    }
+
+    .btn-health-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(42, 125, 225, 0.3);
+    }
+
+    .btn-health-secondary {
+        background: linear-gradient(135deg, var(--secondary) 0%, #43A047 100%);
+        color: white;
+    }
+
+    .btn-health-danger {
+        background: linear-gradient(135deg, var(--danger) 0%, #d32f2f 100%);
+        color: white;
+    }
+
+    /* Indicateurs AQI */
     .aqi-indicator {
-        width: 40px;
-        height: 40px;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         color: white;
         font-weight: bold;
+        font-size: 1.2rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .aqi-good { background-color: #4CAF50; }
-    .aqi-moderate { background-color: #FFC107; }
-    .aqi-unhealthy-sensitive { background-color: #FF9800; }
-    .aqi-unhealthy { background-color: #F44336; }
-    .aqi-very-unhealthy { background-color: #9C27B0; }
-    .aqi-hazardous { background-color: #795548; }
+    .aqi-good { background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); }
+    .aqi-moderate { background: linear-gradient(135deg, #FFC107 0%, #ffb300 100%); }
+    .aqi-unhealthy-sensitive { background: linear-gradient(135deg, #FF9800 0%, #f57c00 100%); }
+    .aqi-unhealthy { background: linear-gradient(135deg, #F44336 0%, #d32f2f 100%); }
+    .aqi-very-unhealthy { background: linear-gradient(135deg, #9C27B0 0%, #7b1fa2 100%); }
+    .aqi-hazardous { background: linear-gradient(135deg, #795548 0%, #5d4037 100%); }
 
-    .btn-health {
-        border-radius: 25px;
-        padding: 0.5rem 1.5rem;
-        font-weight: 600;
-        transition: all 0.3s;
+    /* Badges d'alerte */
+    .health-badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.875rem;
+        font-weight: 500;
     }
 
-    .btn-health-primary {
-        background-color: var(--primary);
-        border-color: var(--primary);
+    .badge-low { background-color: var(--health-green); color: #2e7d32; border: 1px solid #81c784; }
+    .badge-medium { background-color: var(--health-orange); color: #ef6c00; border: 1px solid #ffb74d; }
+    .badge-high { background-color: var(--health-red); color: #c62828; border: 1px solid #ef5350; }
+    .badge-critical { background-color: var(--health-purple); color: #7b1fa2; border: 1px solid #ba68c8; }
+
+    /* Formulaires */
+    .health-form { background: white; border-radius: var(--border-radius); padding: 2rem; box-shadow: var(--shadow); }
+    .health-form-label { font-weight: 600; color: var(--dark); margin-bottom: 0.5rem; display: block; }
+    .health-form-input { width: 100%; padding: 0.75rem 1rem; border: 2px solid #e9ecef; border-radius: 8px; transition: all 0.3s ease; font-family: var(--font-body); }
+    .health-form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(42, 125, 225, 0.1); outline: none; }
+
+    /* Tableaux */
+    .health-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+    }
+    .health-table th {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
         color: white;
+        padding: 1rem;
+        text-align: left;
+        font-weight: 600;
     }
+    .health-table td { padding: 1rem; border-bottom: 1px solid #e9ecef; }
+    .health-table tr:last-child td { border-bottom: none; }
+    .health-table tr:hover { background-color: #f8f9fa; }
 
-    .btn-health-primary:hover {
-        background-color: var(--primary-dark);
-        border-color: var(--primary-dark);
-        transform: translateY(-2px);
-    }
+    /* Alertes santé */
+    .health-alert { padding: 1rem 1.5rem; border-radius: var(--border-radius); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; }
+    .health-alert-success { background-color: var(--health-green); color: #2e7d32; border-left: 4px solid var(--secondary); }
+    .health-alert-warning { background-color: var(--health-orange); color: #ef6c00; border-left: 4px solid var(--warning); }
+    .health-alert-danger { background-color: var(--health-red); color: #c62828; border-left: 4px solid var(--danger); }
+    .health-alert-info { background-color: var(--health-blue); color: #1565c0; border-left: 4px solid var(--info); }
 
-    .navbar-health {
-        background-color: white;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
+    /* Loader */
+    .health-loader { display: inline-block; width: 20px; height: 20px; border: 3px solid #f3f3f3; border-top: 3px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-    .health-icon {
-        color: var(--primary);
-        margin-right: 0.5rem;
-    }
+    /* Animations */
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+    .pulse { animation: pulse 0.6s ease-in-out; }
 }
 
 /* ============================
    Responsivité
 =============================== */
 @media (max-width: 768px) {
-    table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
-    
-    .table-responsive {
-        @apply block overflow-x-auto whitespace-nowrap;
-    }
+    .health-nav { flex-direction: column; gap: 1rem; }
+    .health-nav-menu { flex-direction: column; gap: 0.5rem; }
+    .health-card { margin-bottom: 1rem; }
+    .health-table { display: block; overflow-x: auto; }
 }
