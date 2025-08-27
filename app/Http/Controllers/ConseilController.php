@@ -8,60 +8,122 @@ use Illuminate\Support\Facades\Auth;
 
 class ConseilController extends Controller
 {
+    /** Liste des conseils de l'utilisateur connecté */
     public function index(Request $request)
     {
-        $query = Auth::user()->conseils()->orderBy('niveau_alerte', 'desc');
+        try {
+            $validated = $request->validate([
+                'categorie' => 'required|string|max:255',
+                'contenu' => 'required|string',
+                'niveau_alerte' => 'required|integer|min:0|max:10',
+            ]);
 
-        // filtres optionnels
-        if ($request->filled('categorie')) {
-            $query->where('categorie', $request->categorie);
-        }
-        if ($request->filled('niveau_min')) {
-            $query->where('niveau_alerte', '>=', (int)$request->niveau_min);
-        }
-        if ($request->filled('niveau_max')) {
-            $query->where('niveau_alerte', '<=', (int)$request->niveau_max);
-        }
+            $conseil = Auth::user()->conseils()->create($validated);
 
-        return $query->get();
+            return response()->json([
+                'success' => true,
+                'data' => $conseil,
+                'message' => 'Conseil ajouté avec succès.'
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erreur lors de la création du conseil.',
+                'error' => config('app.debug') ? $e->getMessage() : null
+            ], 500);
+        }
     }
 
+    // Créer un conseil
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'categorie' => 'required|string|max:255',
-            'contenu' => 'required|string',
-            'niveau_alerte' => 'required|integer|min:0|max:10',
-        ]);
+        try {
+            $validated = $request->validate([
+                'categorie' => 'required|string|max:255',
+                'contenu' => 'required|string',
+                'niveau_alerte' => 'required|integer|min:0|max:10',
+            ]);
 
-        return Auth::user()->conseils()->create($validated);
+            $conseil = Auth::user()->conseils()->create($validated);
+
+            return response()->json([
+                'success' => true,
+                'data' => $conseil,
+                'message' => 'Conseil ajouté avec succès.'
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erreur lors de la création du conseil.',
+                'error' => config('app.debug') ? $e->getMessage() : null
+            ], 500);
+        }
     }
 
+    // Afficher un conseil
     public function show($id)
     {
-        $conseil = Auth::user()->conseils()->findOrFail($id);
-        return $conseil;
+        try {
+            $conseil = Auth::user()->conseils()->findOrFail($id);
+
+            return response()->json([
+                'success' => true,
+                'data' => $conseil
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Conseil introuvable.',
+                'error' => config('app.debug') ? $e->getMessage() : null
+            ], 404);
+        }
     }
 
+    // Modifier un conseil
     public function update(Request $request, $id)
     {
-        $conseil = Auth::user()->conseils()->findOrFail($id);
+        try {
+            $conseil = Auth::user()->conseils()->findOrFail($id);
 
-        $validated = $request->validate([
-            'categorie' => 'required|string|max:255',
-            'contenu' => 'required|string',
-            'niveau_alerte' => 'required|integer|min:0|max:10',
-        ]);
+            $validated = $request->validate([
+                'categorie' => 'required|string|max:255',
+                'contenu' => 'required|string',
+                'niveau_alerte' => 'required|integer|min:0|max:10',
+            ]);
 
-        $conseil->update($validated);
-        return $conseil;
+            $conseil->update($validated);
+
+            return response()->json([
+                'success' => true,
+                'data' => $conseil,
+                'message' => 'Conseil mis à jour avec succès.'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erreur lors de la mise à jour du conseil.',
+                'error' => config('app.debug') ? $e->getMessage() : null
+            ], 500);
+        }
     }
 
+    // Supprimer un conseil
     public function destroy($id)
     {
-        $conseil = Auth::user()->conseils()->findOrFail($id);
-        $conseil->delete();
+         try {
+            $conseil = Auth::user()->conseils()->findOrFail($id);
+            $conseil->delete();
 
-        return response()->json(['message' => 'Conseil supprimé.']);
+            return response()->json([
+                'success' => true,
+                'message' => 'Conseil supprimé avec succès.'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erreur lors de la suppression du conseil.',
+                'error' => config('app.debug') ? $e->getMessage() : null
+            ], 500);
+        }
     }
 }
