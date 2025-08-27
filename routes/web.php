@@ -8,34 +8,44 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// Tableau de bord (accessible uniquement aux utilisateurs authentifiés ET email vérifié)
+Route::middleware(['auth', 'verified'])->group(function () {
 
+    // Dashboard
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/historique', function () {
-        return view('historique');
-    })->name('historique');
-
+    // Journal des symptômes
     Route::get('/journal', function () {
         return view('journal');
     })->name('journal');
 
+    // Historique
+    Route::get('/historique', function () {
+        return view('historique');
+    })->name('historique');
+
+    // Carte qualité de l'air
+    Route::get('/carte', function () {
+        return view('carte');
+    })->name('carte');
+
+    // Qualité de l'air
     Route::get('/air-qualite', function () {
         return view('airqualite');
-    })->name('airqualite');
+    })->name('air-qualite');
 
+    // Conseils santé
     Route::get('/conseils', function () {
         return view('conseils');
     })->name('conseils');
 
-    Route::get('/carte', function () {
-        return view('carte');
-    })->name('carte');
+    // Profil utilisateur (CRUD)
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 });
 
 require __DIR__.'/auth.php';
