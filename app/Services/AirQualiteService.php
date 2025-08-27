@@ -9,11 +9,13 @@ use Illuminate\Support\Facades\Log;
 class AirQualiteService
 {
     protected $apiKey;
+    protected string $baseUrl;
 
     public function __construct()
     {
-        // Récupère la clé depuis le fichier .env
-        $this->apiKey = env('OPENWEATHER_API_KEY');
+        // Récupère la clé depuis le fichier services.php
+        $this->apiKey = config('services.openweather.key');
+        $this->baseUrl = rtrim(config('services.openweather.url'), '/');
     }
 
     /**
@@ -25,7 +27,7 @@ class AirQualiteService
      */
     public function getAirQualite(float $lat, float $lon): ?array
     {
-        $url = "http://api.openweathermap.org/data/2.5/air_pollution?lat={$lat}&lon={$lon}&appid={$this->apiKey}";
+        $url = "{$this->baseUrl}/air_pollution?lat={$lat}&lon={$lon}&appid={$this->apiKey}";
 
         try {
             $response = Http::timeout(10)->get($url);
@@ -34,11 +36,18 @@ class AirQualiteService
                 return $response->json();
             }
 
-            Log::error('OpenWeatherMap API error: ' . $response->body());
+            Log::error('OpenWeatherMap API error: ', [
+                'url' => $url,
+                'status' => $response->status(),
+                'body' => $response->body(),
+            ]);
             return null;
 
         } catch (\Exception $e) {
-            Log::error('Exception during OpenWeatherMap API call: ' . $e->getMessage());
+            Log::error('Exception during OpenWeatherMap API call: ', [
+                'url' => $url,
+                'error' => $e->getMessage(),
+            ]);
             return null;
         }
     }
@@ -59,7 +68,6 @@ class AirQualiteService
             'aqi' => $main['aqi'], // 1=Bon, 2=Modéré, 3=Malsain pour groupes sensibles, etc.
             'pm2_5' => $components['pm2_5'],
             'pm10' => $components['pm10'],
-            // Tu peux ajouter d'autres composants si tu veux (so2, no2, etc.)
             'timestamp' => $apiData['list'][0]['dt'],
         ];
     }
