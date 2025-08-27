@@ -32,7 +32,7 @@ return [
     ],
 
     'openweather' => [
-        'key' => env('OPENWEATHER_API_KEY'), // ta clé API
+        'key' => env('OPENWEATHER_API_KEY'), // ma clé API
         'url' => env('OPENWEATHER_API_URL', 'https://api.openweathermap.org/data/2.5/'),
     ],
 ];
