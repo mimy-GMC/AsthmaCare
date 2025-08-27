@@ -20,7 +20,8 @@ return new class extends Migration
             $table->timestamps();
 
             // pour filtrer rapidement selon alerte
-            $table->index('niveau_alerte');
+            $table->index(['user_id', 'niveau_alerte']);
+            $table->index(['categorie', 'niveau_alerte']);
         });
     }
 

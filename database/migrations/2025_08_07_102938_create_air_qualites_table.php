@@ -19,9 +19,11 @@ return new class extends Migration
             $table->decimal('pm10', 5,2); // Précision critique santé (particules grossières)
             $table->unsignedSmallInteger('pollen')->nullable();
             $table->string('localite');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
 
             //index pour les performances
+            $table->index(['user_id', 'date_mesure']);
             $table->index(['date_mesure', 'localite']);
         });
     }
