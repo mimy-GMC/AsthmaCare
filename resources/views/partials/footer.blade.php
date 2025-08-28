@@ -6,17 +6,29 @@
                 <p class="text-sm opacity-80">Votre compagnon pour une meilleure santé respiratoire</p>
             </div>
 
-            <div class="flex gap-6 mb-4 md:mb-0">
-                <a href="#" class="text-white hover:text-blue-300 transition-colors">
-                    <i class="fab fa-facebook"></i>
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Légal</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white">Confidentialité</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Conditions d'utilisation</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Contacts</h3>
+                <p class="text-gray-400">support@asthmacare.com</p>
+                <div class="flex gap-6 mb-4 md:mb-0">
+                    <a href="#" class="text-white hover:text-blue-300 transition-colors">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-white hover:text-blue-300 transition-colors">
+                    <i class="fab fa-github"></i>
                 </a>
                 <a href="#" class="text-white hover:text-blue-300 transition-colors">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#" class="text-white hover:text-blue-300 transition-colors">
-                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-linkedin"></i>
                 </a>
             </div>
+
 
             <div>
                 <p class="text-sm">© {{ date('Y') }} AsthmaCare - Développé par Miryam GAKOSSO</p>

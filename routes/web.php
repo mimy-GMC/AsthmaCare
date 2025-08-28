@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\OthersPagesController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -8,7 +9,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Tableau de bord (accessible uniquement aux utilisateurs authentifiés ET email vérifié)
+// Pages publiques
+Route::get('/features', [OthersPagesController::class, 'features'])->name('features');
+Route::get('/about', [OthersPagesController::class, 'about'])->name('about');
+Route::get('/contact', [OthersPagesController::class, 'contact'])->name('contact');
+
+// Routes (accessible uniquement aux utilisateurs authentifiés ET email vérifié)
 Route::middleware(['auth', 'verified'])->group(function () {
 
     // Dashboard
