@@ -3,54 +3,52 @@
 @section('title', 'Conseils Santé')
 
 @section('content')
-<h2 class="text-2xl font-semibold mb-6">Conseils santé et Préventions</h2>
+<h2 class="text-2xl font-heading font-bold mb-6">Conseils santé et Pr<div class="health-card p-6 space-y-4">éventions</h2>
 
 <!-- Formulaire ajout conseil -->
-<form id="conseilForm" class="bg-white p-6 rounded-lg shadow-md space-y-4">
-    @csrf
+<div class="health-card p-6 space-y-4">
+    <form id="conseilForm" class="health-card p-6 space-y-4">
+        @csrf
 
-    <!-- Catégorie -->
-    <div>
-        <label for="categorie" class="block font-medium">Catégorie</label>
-        <input type="text" id="categorie" name="categorie"
-               class="mt-1 p-2 border rounded w-full">
-    </div>
+        <!-- Catégorie -->
+        <div>
+            <label for="categorie" class="health-form-label">Catégorie</label>
+            <input type="text" id="categorie" name="categorie" class="health-form-input">
+        </div>
 
-    <!-- Contenu -->
-    <div>
-        <label for="contenu" class="block font-medium">Contenu</label>
-        <textarea id="contenu" name="contenu" rows="3"
-                  class="mt-1 p-2 border rounded w-full"></textarea>
-    </div>
+        <!-- Contenu -->
+        <div>
+            <label for="contenu" class="health-form-label">Contenu</label>
+            <textarea id="contenu" name="contenu" rows="3" class="health-form-textarea"></textarea>
+        </div>
 
-    <!-- Niveau alerte -->
-    <div>
-        <label for="niveau_alerte" class="block font-medium">Niveau alerte (0-10)</label>
-        <input type="number" id="niveau_alerte" name="niveau_alerte" min="0" max="10"
-               class="mt-1 p-2 border rounded w-full">
-    </div>
+        <!-- Niveau alerte -->
+        <div>
+            <label for="niveau_alerte" class="health-form-label">Niveau alerte (0-10)</label>
+            <input type="number" id="niveau_alerte" name="niveau_alerte" min="0" max="10" class="health-form-input">
+        </div>
 
-    <button type="submit"
-            class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-        Ajouter
-    </button>
-</form>
+        <button type="submit" class="btn-health btn-health-primary">
+            Ajouter
+        </button>
+    </form>
 
-<!-- Message -->
-<p id="conseilSuccessMessage" class="hidden mt-4 text-green-600 font-semibold">
-    Conseil ajouté avec succès !
-</p>
+    <!-- Message -->
+    <p id="conseilSuccessMessage" class="health-alert health-alert-success hidden mt-4">
+        Conseil ajouté avec succès !
+    </p>
+</div>
 
 <!-- Liste -->
 <hr class="my-6">
-<h3 class="text-xl font-semibold mb-4">Liste des conseils</h3>
-<table class="w-full bg-white shadow rounded-lg overflow-hidden">
-    <thead class="bg-gray-100">
+<h3 class="text-xl font-heading font-semibold mb-4">Liste des conseils</h3>
+<table class="health-table">
+    <thead>
         <tr>
-            <th class="p-3 text-left">Catégorie</th>
-            <th class="p-3 text-left">Contenu</th>
-            <th class="p-3 text-left">Niveau alerte</th>
-            <th class="p-3">Actions</th>
+            <th>Catégorie</th>
+            <th>Contenu</th>
+            <th>Niveau alerte</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody id="conseilsTable"></tbody>
