@@ -1,66 +1,239 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## 🌬️ AsthmaCare - Suivi et Gestion de l'Asthme
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 📖 Présentation
+AsthmaCare est une application web complète conçue pour aider les personnes asthmatiques à mieux gérer leur santé respiratoire au quotidien. En tant que développeur et moi-même asthmatique, j'ai créé cette application pour résoudre un problème personnel : le manque d'outils simples et centralisés pour suivre les crises, comprendre les déclencheurs et anticiper les risques environnementaux.
 
-## About Laravel
+## 🤔 Le problème abordé
+L'asthme est une maladie chronique qui affecte des millions de personnes worldwide. Les crises peuvent être déclenchées par divers facteurs environnementaux (pollution, pollen, froid, etc.) et leur suivi est souvent fragmenté entre différents outils ou carnets papier. AsthmaCare centralise toutes ces informations et fournit des insights personnalisés.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🛠️ Stack Technique : 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### BACKEND :
+Laravel 10 - Framework PHP robuste et élégant
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Sanctum - Authentification API sécurisée
 
-## Learning Laravel
+MySQL - Base de données relationnelle
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Eloquent ORM - Gestion des données objet-relationnelle
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Frontend :
+Blade - Moteur de templating Laravel
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+TailwindCSS - Framework CSS utilitaire
 
-## Laravel Sponsors
+Alpine.js - Interactivité côté client
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Chart.js - Visualisation des données de santé
 
-### Premium Partners
+Leaflet.js - Cartographie interactive
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## 🔐 Authentification et Routes :
+Sanctum : Gestion des tokens API pour les utilisateurs authentifiés
 
-## Contributing
+Breeze : Scaffolding d'authentification (login, register, logout)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Middleware personnalisé : Vérification des sessions et synchronisation
 
-## Code of Conduct
+Routes API RESTful : CRUD pour les symptômes, qualité d'air et conseils
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Routes Web : Pages dashboard, journal, historique, carte, etc.
 
-## Security Vulnerabilities
+API externes
+OpenWeatherMap Air Pollution - Données qualité de l'air en temps réel
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Geolocation API - Localisation de l'utilisateur
+
+## 🚀 Fonctionnalités :
+### Fonctionnalités techniques remarquables :
+✅ Système d'authentification double (web + API)
+
+✅ Middleware personnalisé pour synchroniser les sessions
+
+✅ Validation de données robuste côté serveur
+
+✅ Gestion des erreurs uniformisée avec formatage JSON
+
+✅ Service Layer pour l'intégration API externe
+
+✅ Vérification email obligatoire
+
+✅ Protection CSRF sur les routes web
+
+### Fonctionnalités utilisateur :
+📊 Tableau de bord avec données synthétiques
+
+📝 Journal des symptômes quotidien
+
+📅 Historique des crises et tendances
+
+🗺️ Carte interactive de la qualité de l'air
+
+🌡️ Surveillance environnementale en temps réel
+
+💡 Conseils personnalisés selon le profil
+
+👤 Gestion de profil complète
+
+## 🌐 Structure des Routes :
+### API Routes (protégées par Sanctum)
+
+Méthode	  Endpoint	                     Description	                Authentification
+POST	  /api/register	                 Création de compte	            Non
+POST	  /api/login	                 Connexion	                    Non
+POST	  /api/logout	                 Déconnexion	                Oui
+GET	      /api/symptomes	             Liste des symptômes	        Oui
+POST	  /api/symptomes	             Créer un symptôme	            Oui
+GET	      /api/symptomes/{id}	         Afficher un symptôme	        Oui
+PUT	      /api/symptomes/{id}	         Mettre à jour un symptôme	    Oui
+DELETE	  /api/symptomes/{id}	         Supprimer un symptôme	        Oui
+GET	      /api/air-qualites	             Données qualité air	        Oui
+POST	  /api/air-qualites	             Créer donnée qualité air	    Oui
+GET	      /api/external/air-qualites	 Données externes (OpenWeather)	Oui
+GET	      /api/conseils	                 Liste des conseils	            Oui
+GET	      /api/conseils-personnalises	 Conseils personnalisés     	Oui
+
+### Web Routes (protégées par auth + verified)
+Page	                    Route	            Description	                    Authentification
+Page d'accueil	            /Accueil	                                        Non
+Fonctionnalités	            /features	        Présentation des features	    Non
+À propos	                /about	            Page à propos	                Non
+Contact	                    /contact	        Page contact	                Non
+Dashboard	                /dashboard	        Tableau de bord principal	    Oui + Verified
+Journal	                    /journal	        Suivi quotidien des symptômes	Oui + Verified
+Historique	                /historique	        Historique des crises	        Oui + Verified
+Carte	                    /carte	            Carte interactive qualité air	Oui + Verified
+Qualité air	                /air-qualite	    Détails qualité air	            Oui + Verified
+Conseils	                /conseils	        Recommandations santé	        Oui + Verified
+Profil	                    /profile	        Gestion du compte utilisateur	Oui + Verified
+
+## 🚀 Installation
+
+### Prérequis : 
+PHP 8.2+
+Composer
+Node.js et npm
+MySQL 8.0+
+
+### Étapes d'installation
+1. Cloner le projet
+git clone https://github.com/mimy-GMC/AsthmaCare.git
+cd AsthmaCare
+
+2. Installer les dépendances PHP
+composer install
+
+3. Installer les dépendances JavaScript
+npm install
+
+4. Configurer l'environnement
+cp .env.example .env
+
+5. Générer la clé d'application
+php artisan key:generate
+
+6. Configurer l'authentification Sanctum
+php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+php artisan migrate
+
+7. Migrer la base de données
+php artisan migrate
+
+8. Seeder les données (conseils par défaut)
+php artisan db:seed
+
+9. Compiler les assets
+npm run build
+
+10. Démarrer le serveur
+php artisan serve
+
+11. lancer l'application
+npm run dev
+
+## L'application sera accessible sur http://localhost:8000
+
+## 🔑 Configuration de l'Authentification
+Après l'installation, assurez-vous de :
+
+1. Configurer les domains Sanctum dans .env :
+SANCTUM_STATEFUL_DOMAINS=localhost,127.0.0.1
+SESSION_DOMAIN=localhost
+
+2. Vérifier les CORS dans config/cors.php :
+'paths' => ['api/*', 'sanctum/csrf-cookie'],
+'supports_credentials' => true,
+
+## 🌐 Navigation Web
+Inscription : /register → vérification email
+
+Connexion : /login → redirection vers /dashboard
+
+Accès aux fonctionnalités : Toutes les routes protégées après vérification email
+
+## 🔮 Perspectives d'Évolution :
+
+1. Court terme (v1.1) : 
+📱 Application mobile React Native/Expo
+
+🔔 Notifications push pour pics de pollution
+
+📄 Export PDF des données santé
+
+📴 Mode hors-ligne partiel
+
+2. Moyen terme (v2.0) :
+🏷️ Intégration IoT (capteurs air qualité personnels)
+
+🤖 Intelligence artificielle pour prédiction des crises
+
+👨‍⚕️ Interface médecin-patient
+
+💊 Synchronisation avec objets connectés (inhalateurs intelligents)
+
+3. Long terme (v3.0+) :
+👥 Plateforme communautaire (partage anonymisé de données)
+
+🏥 Intégration avec dossiers médicaux électroniques
+
+📊 Analyse comparative régionale/nationale
+
+🎯 Recommandations personnalisées par machine learning
+
+### Évolution technique :
+
+🏗️ Microservices architecture
+
+⚡ Cache Redis pour performances
+
+🧪 Tests unitaires et d'intégration complets
+
+🔄 CI/CD pipeline automatisé
+
+🐳 Déploiement Docker/Kubernetes
+
+🔌 OAuth2 pour connexion via réseaux sociaux
+
+⚠️ Rate limiting avancé sur les API
+
+📡 WebSockets pour notifications temps réel
+
+🔢 API versioning pour maintainabilité
+
+📚 Documentation automatique avec OpenAPI/Swagger
 
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## 👤 Auteur
+Miryam GAKOSSO
+GitHub: @mimy-GMC
+Email: miryam.gakosso@ynov.com
+
+🙏 Remerciements
+- OpenWeatherMap pour leur API gratuite
+- La communauté Laravel pour l'excellent framework
+- Tous les testeurs et contributeurs bêta
+
+AsthmaCare - Respirez mieux, vivez mieux 🌈
