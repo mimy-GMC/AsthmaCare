@@ -8,9 +8,9 @@
 @layer base {
     /* Couleurs et typographie */
     :root {
-        --primary: #2A7DE1;
+        --primary: #4b5ca9ff;
         --primary-dark: #1E5AAF;
-        --secondary: #4CAF50;
+        --secondary: #7547a3ff;
         --accent: #FF9800;
         --danger: #F44336;
         --warning: #FFC107;
@@ -22,7 +22,7 @@
         --health-green: #E8F5E9;
         --health-orange: #FFF3E0;
         --health-red: #FFEBEE;
-        --health-purple: #F3E5F5;
+        --health-purple: #e1c3ed;
 
         --font-heading: 'Montserrat', sans-serif;
         --font-body: 'Open Sans', sans-serif;
@@ -86,12 +86,11 @@
     /* Boutons santé */
     .btn-health {
         border-radius: 25px;
-        padding: 0.75rem 2rem;
+        padding: 0.75rem 1rem;
         font-weight: 600;
         transition: all 0.3s ease;
         border: none;
         cursor: pointer;
-        text-transform: uppercase;
         letter-spacing: 0.5px;
     }
 
@@ -102,11 +101,11 @@
 
     .btn-health-primary:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(42, 125, 225, 0.3);
+        box-shadow: 0 6px 12px rgba(178, 133, 232, 0.3);
     }
 
     .btn-health-secondary {
-        background: linear-gradient(135deg, var(--secondary) 0%, #43A047 100%);
+        background: linear-gradient(135deg, var(--secondary) 0%, #4b5ca9ff 100%);
         color: white;
     }
 
@@ -123,7 +122,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
+        color: rgb(255, 255, 255);
         font-weight: bold;
         font-size: 1.2rem;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -191,6 +190,34 @@
     @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
     .pulse { animation: pulse 0.6s ease-in-out; }
 }
+
+/* ============================
+   Animations
+=============================== */
+/* Animation machine à écrire */
+.typewriter {
+  display: inline-block;
+  white-space: nowrap;              
+  border-right: 2px solid #7547a3ff; 
+  overflow: hidden;
+  width: 0;                
+  animation: typing 4s steps(30, end) infinite, blink 0.7s step-end infinite;
+}
+
+/* Animation écriture */
+@keyframes typing {
+    0%   { width: 0; }
+    40%  { width: 21ch; }  /* Texte complet */
+    60%  { width: 21ch; }  /* Petite pause */
+    100% { width: 0; }     /* Effacement */
+}
+
+/* Clignotement du curseur */
+@keyframes blink {
+  from, to { border-color: transparent; }
+  50% { border-color: #7547a3ff; }
+}
+
 
 /* ============================
    Responsivité

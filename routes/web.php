@@ -15,7 +15,7 @@ Route::get('/about', [OthersPagesController::class, 'about'])->name('about');
 Route::get('/contact', [OthersPagesController::class, 'contact'])->name('contact');
 
 // Routes (accessible uniquement aux utilisateurs authentifiés ET email vérifié)
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'sync.auth'])->group(function () {
 
     // Dashboard
     Route::get('/dashboard', function () {

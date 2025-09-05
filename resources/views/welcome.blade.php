@@ -1,106 +1,78 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="AsthmaCare - Application de suivi et gestion de l'asthme">
-    <title>AsthmaCare - Votre compagnon santé respiratoire</title>
+@extends('layouts.app')
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    @vite(['resources/css/app.css'])
-    
-    <style>
-        .hero-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-        }
-        .feature-card {
-            transition: all 0.3s ease;
-        }
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-        .health-stat {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border-radius: var(--border-radius);
-        }
-    </style>
-</head>
-<body class="font-sans antialiased">
-
-    <!-- Navigation -->
-    <header class="health-header bg-primary text-white shadow-md">
-        <nav class="health-nav container mx-auto flex justify-between items-center py-4 px-4 md:px-0">
-            <a href="{{ url('/') }}" class="health-brand flex items-center gap-2 text-xl font-bold">
-                <i class="fas fa-lungs"></i> AsthmaCare
-            </a>
-
-            <ul class="health-nav-menu flex gap-4">
-                <li><a href="{{ route('features') }}" class="health-nav-link {{ request()->routeIs('features') ? 'active' : '' }}"><i class="fas fa-th-large"></i> Fonctionnalités</a></li>
-                <li><a href="{{ route('about') }}" class="health-nav-link {{ request()->routeIs('about') ? 'active' : '' }}"><i class="fas fa-info-circle"></i> À propos</a></li>
-                <li><a href="{{ route('contact') }}" class="health-nav-link {{ request()->routeIs('contact') ? 'active' : '' }}"><i class="fas fa-envelope"></i> Contact</a></li>
-            </ul>
-
-            <div class="flex items-center gap-4">
-                @if (Route::has('login'))
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="btn-health btn-health-primary">
-                            <i class="fas fa-tachometer-alt mr-2"></i> Tableau de bord
-                        </a>
-                    @else
-                        <a href="{{ route('login') }}" class="health-nav-link">Connexion</a>
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="btn-health btn-health-primary">
-                                <i class="fas fa-user-plus mr-2"></i> Inscription
-                            </a>
-                        @endif
-                    @endauth
-                @endif
-            </div>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-            <h1 class="text-5xl md:text-6xl font-bold mb-6">
-                Prenez le contrôle de votre santé respiratoire
+@section('content')
+    <!-- Section Hero -->
+    <section class="relative bg-gradient-to-r from-cyan-50 to-indigo-200 pt-32 pb-20 text-center overflow-hidden">
+        <div class="container mx-auto px-6">
+            <h1 
+                class="text-4xl md:text-5xl font-extrabold font-serif text-[#4b5ca9ff] mb-6 leading-tight animate-fade-in-up text-center"
+            >
+                <span class="typewriter">Bienvenue sur <span class="text-[#7547a3ff]">AsthmaCare</span></span>
             </h1>
-            <p class="text-xl md:text-2xl mb-8 opacity-90">
-                AsthmaCare vous aide à suivre et gérer votre asthme au quotidien
+            <p 
+                class="text-lg font-serif md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto animate-fade-in delay-200"
+            >
+                L'application web qui vous aide à mieux vivre avec l'asthme, grâce à un suivi personnalisé et à l'intégration de données environnementales.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                @auth
-                    <a href="{{ route('dashboard') }}" class="btn-health btn-health-primary text-lg px-8 py-3">
-                        <i class="fas fa-tachometer-alt mr-2"></i> Tableau de bord
-                    </a>
-                @else
-                    <a href="{{ route('register') }}" class="btn-health btn-health-primary text-lg px-8 py-3">
-                        <i class="fas fa-user-plus mr-2"></i> Commencer gratuitement
-                    </a>
-                    <a href="{{ route('login') }}" class="btn-health bg-white text-blue-600 text-lg px-8 py-3">
-                        <i class="fas fa-sign-in-alt mr-2"></i> Se connecter
-                    </a>
-                @endauth
+            <div class="flex justify-center space-x-4 animate-fade-in delay-300">
+                <a href="{{ route('features') }}" class="btn-health btn-health-secondary font-serif hover:scale-105 transform transition flex items-center gap-2 group">
+                    Découvrir
+                    <i class="fas fa-arrow-right transition-transform duration-300 group-hover:translate-x-1"></i>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Sections intégrées via routes -->
-    <main class="bg-gray-50">
-        @yield('content')
-    </main>
+    <!-- Section Fonctionnalités -->
+    <section id="features" class="bg-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-serif font-bold text-[#4b5ca9ff] mb-12">
+                Fonctionnalités principales
+            </h2>
+            <div class="grid md:grid-cols-3 gap-12">
+                <!-- Journal -->
+                <div class="font-serif p-6 shadow-lg rounded-2xl bg-sky-50 hover:shadow-xl transform hover:scale-105 transition duration-300 animate-fade-in-up">
+                    <i class="fas fa-notes-medical text-4xl text-[#681c7dc9] mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-2">Journal des symptômes</h3>
+                    <p class="text-gray-600 text-sm font-serif">
+                        Suivez vos crises, notez leur intensité et identifiez les déclencheurs.
+                    </p>
+                </div>
+                <!-- Qualité de l'air -->
+                <div class="font-serif p-6 shadow-lg rounded-2xl bg-sky-50 hover:shadow-xl transform hover:scale-105 transition duration-300 animate-fade-in-up delay-200">
+                    <i class="fas fa-cloud text-4xl text-[#681c7dc9] mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-2">Qualité de l'air</h3>
+                    <p class="text-gray-600 text-sm font-serif">
+                        Intégration des données météo et pollution pour anticiper vos crises.
+                    </p>
+                </div>
+                <!-- Conseils -->
+                <div class="font-serif p-6 shadow-lg rounded-2xl bg-sky-50 hover:shadow-xl transform hover:scale-105 transition duration-300 animate-fade-in-up delay-400">
+                    <i class="fas fa-lightbulb text-4xl text-[#681c7dc9] mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-2">Conseils personnalisés</h3>
+                    <p class="text-gray-600 text-sm font-serif">
+                        Recevez des recommandations adaptées à vos habitudes et à votre environnement.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Footer -->
-    @include('partials.footer')
+    <!-- Section Call-to-Action -->
+    <section class="bg-gradient-to-r from-[#4b5ca9ff] to-[#7547a3ff] py-16 text-center text-white relative overflow-hidden">
+        <div class="container font-serif mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-6">Prenez le contrôle de votre santé respiratoire</h2>
+            <p class="mb-8 text-lg">
+                Rejoignez dès maintenant AsthmaCare et vivez plus sereinement avec l'asthme.
+            </p>
+        </div>
 
-</body>
-</html>
+        <!-- Effet visuel animé en arrière-plan -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10">
+            <div class="w-72 h-72 bg-white rounded-full absolute -top-10 -left-10 animate-pulse"></div>
+            <div class="w-96 h-96 bg-white rounded-full absolute bottom-0 right-0 animate-ping"></div>
+        </div>
+    </section>
+@endsection
+
+

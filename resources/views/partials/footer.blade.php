@@ -1,46 +1,60 @@
-<footer class="bg-gray-800 text-white py-6 mt-12">
-    <div class="container mx-auto px-4 text-center">
-        <div class="flex flex-col md:flex-row justify-between items-center">
-            <div class="mb-4 md:mb-0">
-                <p class="text-lg font-semibold">AsthmaCare</p>
-                <p class="text-sm opacity-80">Votre compagnon pour une meilleure santé respiratoire</p>
-            </div>
-
-            <div>
-                <h3 class="text-lg font-semibold mb-4">Légal</h3>
-                <ul class="space-y-2">
-                    <li><a href="#" class="text-gray-400 hover:text-white">Confidentialité</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white">Conditions d'utilisation</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h3 class="text-lg font-semibold mb-4">Contacts</h3>
-                <p class="text-gray-400">support@asthmacare.com</p>
-                <div class="flex gap-6 mb-4 md:mb-0">
-                    <a href="#" class="text-white hover:text-blue-300 transition-colors">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" class="text-white hover:text-blue-300 transition-colors">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="#" class="text-white hover:text-blue-300 transition-colors">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-            </div>
-
-
-            <div>
-                <p class="text-sm">© {{ date('Y') }} AsthmaCare - Développé par Miryam GAKOSSO</p>
-                <p class="text-xs opacity-70">Tous droits réservés</p>
-            </div>
+<footer class="bg-sky-100 opacity-80">
+    <div class="container mx-auto grid md:grid-cols-3 gap-8 py-10 px-6">
+        <!-- À propos -->
+        <div>
+            <a href="{{ url('/') }}" class="flex items-center space-x-2 mb-2">
+                <i class="fas fa-lungs text-3xl text-[#644ba9]"></i>
+                <span class="text-2xl text-[#4b5ca9ff] font-serif font-semibold">AsthmaCare</span>
+            </a>
+            <p class="text-sm font-serif">
+                Votre compagnon pour une meilleure santé respiratoire.
+            </p>
         </div>
 
-        <div class="mt-6 pt-4 border-t border-gray-700">
-            <p class="text-xs opacity-70">
-                <i class="fas fa-heart text-red-400"></i> 
-                Application créée avec passion pour aider les personnes asthmatiques
-            </p>
+        <!-- Liens utiles -->
+        <div>
+
+            <h3 class="text-base font-serif font-semibold mb-4">Liens utiles :</h3>
+            <ul class="space-y-2">
+                <li><a href="#" class="font-serif hover:text-primary">Accueil</a></li>
+                <li><a href="{{ route('features') }}" class="font-serif hover:text-primary {{ request()->routeIs('features') ? 'active' : '' }}"> Fonctionnalités</a></li>
+                <li><a href="{{ route('about') }}" class="font-serif hover:text-primary {{ request()->routeIs('about') ? 'active' : '' }}"> À propos</a></li>
+                <li><a href="{{ route('contact') }}" class="font-serif hover:text-primary {{ request()->routeIs('contact') ? 'active' : '' }}">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Réseaux sociaux -->
+        <div>
+            <h3 class="text-base font-serif font-semibold">Contacts :</h3>
+            <p class="font-serif text-[#4b5ca9ff] mb-4">support@asthmacare.com</p>
+
+            <div class="mb-4 md:mb-0">
+                <h3 class="text-base font-serif font-semibold mb-4">Suivez-nous sur :</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-[#4b5ca9ff] hover:text-[#7547a3ff] transition-colors text-2xl">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://github.com/mimy-GMC/AsthmaCare" class="text-[#4b5ca9ff] hover:text-[#7547a3ff] transition-colors text-2xl">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-[#4b5ca9ff] hover:text-[#7547a3ff] transition-colors text-2xl">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bas de page -->
+    <div class="text-center border-t border-indigo-500/50 shadow-xl py-4">
+        <p class="text-sm font-serif">© {{ date('Y') }} AsthmaCare - Développé par Miryam GAKOSSO</p>
+        <p class="text-xs font-serif opacity-50">Tous droits réservés</p>
+
+        <div class="mt-2">
+            <ul class="flex justify-center space-x-6">
+                <li><a href="#" class="text-sm font-serif text-gray-500 hover:text-[#7547a3ff]">Confidentialité</a></li>
+                <li><a href="#" class="text-sm font-serif text-gray-500 hover:text-[#7547a3ff]">Conditions d'utilisation</a></li>
+            </ul>
         </div>
     </div>
 </footer>

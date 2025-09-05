@@ -7,35 +7,22 @@
 
     <title>{{ config('app.name', 'AsthmaCare') }} - Connexion / Inscription</title>
 
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- CSS & JS -->
+    <!-- TailwindCSS & FontAwesome -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <style>
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="health-body font-body">
+<body class="bg-gray-50 font-sans">
 
-    <div class="min-h-screen flex flex-col justify-center items-center pt-6 sm:pt-0">
+    <div class="min-h-screen flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
         <!-- Logo -->
-        <a href="{{ route('dashboard') }}" class="mb-6 flex items-center gap-2 text-2xl font-bold text-primary">
+        <a href="{{ route('dashboard') }}" class="mb-8 flex items-center gap-2 text-3xl font-bold text-primary hover:text-primary-dark transition-colors">
             <i class="fas fa-lungs"></i> AsthmaCare
         </a>
 
-        <!-- Carte du formulaire -->
-        <div class="w-full sm:max-w-md px-6 py-6 bg-white health-card">
+        <!-- Form Container -->
+        <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 space-y-6">
             {{ $slot }}
         </div>
-
-        <!-- Footer mini -->
-        <footer class="mt-6 text-center text-sm text-gray-500">
-            © {{ date('Y') }} AsthmaCare - Développé par Miryam GAKOSSO
-        </footer>
     </div>
 
 </body>

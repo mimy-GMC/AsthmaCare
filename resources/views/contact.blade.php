@@ -25,17 +25,6 @@
                     <button type="submit" class="btn-health btn-health-primary w-full">Envoyer</button>
                 </form>
             </div>
-
-            <!-- Réseaux sociaux -->
-            <div class="health-card p-8 text-center">
-                <h2 class="text-2xl font-semibold mb-6">Suivez-nous</h2>
-                <div class="flex justify-center gap-6 text-2xl">
-                    <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fab fa-facebook-square"></i></a>
-                    <a href="#" class="text-blue-400 hover:text-blue-600"><i class="fab fa-twitter-square"></i></a>
-                    <a href="#" class="text-pink-500 hover:text-pink-700"><i class="fab fa-instagram-square"></i></a>
-                    <a href="#" class="text-blue-700 hover:text-blue-900"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
         </div>
     </div>
 </section>
