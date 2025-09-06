@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\OthersPagesController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -10,9 +9,17 @@ Route::get('/', function () {
 });
 
 // Pages publiques
-Route::get('/features', [OthersPagesController::class, 'features'])->name('features');
-Route::get('/about', [OthersPagesController::class, 'about'])->name('about');
-Route::get('/contact', [OthersPagesController::class, 'contact'])->name('contact');
+Route::get('/features', function () {
+    return view('features');
+})->name('features');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
 
 // Routes (accessible uniquement aux utilisateurs authentifiés ET email vérifié)
 Route::middleware(['auth', 'verified', 'sync.auth'])->group(function () {

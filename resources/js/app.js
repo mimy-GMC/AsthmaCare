@@ -37,6 +37,12 @@ axios.interceptors.response.use(
     }
 );
 
+// Vérifier si l'utilisateur est connecté
+function isAuthenticated() {
+    return !!localStorage.getItem('sanctum_token');
+}
+
+
 // Fonction de login API
 async function loginAPI(email, password) {
     try {
@@ -70,28 +76,9 @@ async function logoutAPI() {
     }
 }
 
-// Vérifier si l'utilisateur est connecté
-function isAuthenticated() {
-    return !!localStorage.getItem('sanctum_token');
-}
 
-// Rediriger si non connecté
-function requireAuth() {
-    if (!isAuthenticated()) {
-        window.location.href = '/login';
-        return false;
-    }
-    return true;
-}
 
 // ==================== INITIALISATION ====================
-
-// Au chargement, vérifier l'authentification
-if (!isAuthenticated() && !window.location.pathname.includes('/login') && 
-    !window.location.pathname.includes('/register') && window.location.pathname !== '/') {
-    window.location.href = '/login';
-}
-
 
 document.addEventListener('DOMContentLoaded', () => {
     // Vérification d'authentification pour les pages protégées

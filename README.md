@@ -8,16 +8,16 @@ L'asthme est une maladie chronique qui affecte des millions de personnes worldwi
 
 ## 🛠️ Stack Technique : 
 
-### BACKEND :
+### BACKEND et Framework:
 Laravel 10 - Framework PHP robuste et élégant
 
 Sanctum - Authentification API sécurisée
 
-MySQL - Base de données relationnelle
+SQLite - Base de données légère et portable (fichier local)
 
 Eloquent ORM - Gestion des données objet-relationnelle
 
-### Frontend :
+### Frontend et Design:
 Blade - Moteur de templating Laravel
 
 TailwindCSS - Framework CSS utilitaire
@@ -27,6 +27,9 @@ Alpine.js - Interactivité côté client
 Chart.js - Visualisation des données de santé
 
 Leaflet.js - Cartographie interactive
+
+### Base de données
+SQLite - Base de données légère et portable (fichier local)
 
 ## 🔐 Authentification et Routes :
 Sanctum : Gestion des tokens API pour les utilisateurs authentifiés
@@ -39,7 +42,7 @@ Routes API RESTful : CRUD pour les symptômes, qualité d'air et conseils
 
 Routes Web : Pages dashboard, journal, historique, carte, etc.
 
-API externes
+## API externes :
 OpenWeatherMap Air Pollution - Données qualité de l'air en temps réel
 
 Geolocation API - Localisation de l'utilisateur
@@ -75,8 +78,9 @@ Geolocation API - Localisation de l'utilisateur
 
 👤 Gestion de profil complète
 
-## 🌐 Structure des Routes :
+## 🌐 Structure des Routes : 
 ### API Routes (protégées par Sanctum)
+Qui permettront de connecter une application mobile (Expo/React Native) ou d’autres services, si jamais nous voulons évoluer.
 
 Méthode	  Endpoint	                     Description	                Authentification
 POST	  /api/register	                 Création de compte	            Non
