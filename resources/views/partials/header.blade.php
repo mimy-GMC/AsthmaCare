@@ -8,9 +8,9 @@
 
         <!-- Menu -->
         <ul class="health-nav-menu hidden md:flex space-x-6 font-normal font-serif text-base text-dark hover:text-[#4b5ca9ff]">
-            <li><a href="#journal">Journal</a></li>
-            <li><a href="#dashboard">Tableau de bord</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="{{ route('journal') }}">Journal</a></li>
+            <li><a href="{{ route('dashboard') }}">Tableau de bord</a></li>
+            <li><a href="{{ route('carte') }}">Carte</a></li>
         </ul>
 
         <!-- Connexion / Profil -->
@@ -36,9 +36,9 @@
     <!-- Menu Mobile -->
     <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
         <ul class="flex flex-col space-y-2 p-4 font-normal font-serif text-gray-600">
-            <li><a href="#journal" class="hover:text-[#4b5ca9ff]">Journal</a></li>
-            <li><a href="#dashboard" class="hover:text-[#4b5ca9ff]">Tableau de bord</a></li>
-            <li><a href="#contact" class="hover:text-[#4b5ca9ff]">Contact</a></li>
+            <li><a href="{{ route('journal') }}">Journal</a></li>
+            <li><a href="{{ route('dashboard') }}">Tableau de bord</a></li>
+            <li><a href="{{ route('carte') }}">Carte</a></li>
 
             @auth
                 <li><a href="{{ route('profile.edit') }}" class="transition transform hover:scale-105">Profil</a></li>

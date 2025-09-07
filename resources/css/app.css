@@ -16,7 +16,7 @@
         --warning: #FFC107;
         --info: #00BCD4;
         --light: #F8F9FA;
-        --dark: #343A40;
+        --dark: #201a2d;
 
         --health-blue: #E3F2FD;
         --health-green: #E8F5E9;
@@ -66,12 +66,13 @@
         background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
         color: white;
         padding: 1.5rem;
-        font-family: var(--font-heading);
-        font-weight: 600;
+        font-family: serif;
+        font-weight: 400;
     }
 
     .health-card-body {
         padding: 1.5rem;
+        font-family: serif;
     }
 
     .health-card-footer {
@@ -151,8 +152,8 @@
 
     /* Formulaires */
     .health-form { background: white; border-radius: var(--border-radius); padding: 2rem; box-shadow: var(--shadow); }
-    .health-form-label { font-weight: 600; color: var(--dark); margin-bottom: 0.5rem; display: block; }
-    .health-form-input { width: 100%; padding: 0.75rem 1rem; border: 2px solid #e9ecef; border-radius: 8px; transition: all 0.3s ease; font-family: var(--font-body); }
+    .health-form-label { font-weight: 400; color: var(--dark); margin-bottom: 0.5rem; display: block; font-family: serif; }
+    .health-form-input { width: 100%; padding: 0.75rem 1rem; border: 2px solid #9d95a7; border-radius: 8px; transition: all 0.3s ease; font-family: var(--font-body); }
     .health-form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(42, 125, 225, 0.1); outline: none; }
 
     /* Tableaux */

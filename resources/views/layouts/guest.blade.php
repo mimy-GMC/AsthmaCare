@@ -14,10 +14,6 @@
 <body class="bg-gray-50 font-sans">
 
     <div class="min-h-screen flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
-        <!-- Logo -->
-        <a href="{{ route('dashboard') }}" class="mb-8 flex items-center gap-2 text-3xl font-bold text-primary hover:text-primary-dark transition-colors">
-            <i class="fas fa-lungs"></i> AsthmaCare
-        </a>
 
         <!-- Form Container -->
         <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 space-y-6">

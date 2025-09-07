@@ -44,8 +44,8 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        /*Auth::login($user); // Sert à connecter automatiquement l'utilisateur après l'inscription
+        return redirect(RouteServiceProvider::HOME);*/
+        return redirect()->route('login')->with('success', 'Inscription réussie ! Veuillez vous connecter.');
     }
 }

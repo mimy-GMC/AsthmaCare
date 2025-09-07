@@ -10,7 +10,7 @@
                 <span class="typewriter">Bienvenue sur <span class="text-[#7547a3ff]">AsthmaCare</span></span>
             </h1>
             <p 
-                class="text-lg font-serif md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto animate-fade-in delay-200"
+                class="text-lg font-serif md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto"
             >
                 L'application web qui vous aide à mieux vivre avec l'asthme, grâce à un suivi personnalisé et à l'intégration de données environnementales.
             </p>
