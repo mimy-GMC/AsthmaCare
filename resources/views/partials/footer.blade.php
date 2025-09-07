@@ -16,7 +16,7 @@
 
             <h3 class="text-base font-serif font-semibold mb-4">Liens utiles :</h3>
             <ul class="space-y-2">
-                <li><a href="#" class="font-serif hover:text-primary">Accueil</a></li>
+                <li><a href="{{ url('/') }}" class="font-serif hover:text-primary">Accueil</a></li>
                 <li><a href="{{ route('features') }}" class="font-serif hover:text-primary {{ request()->routeIs('features') ? 'active' : '' }}"> Fonctionnalités</a></li>
                 <li><a href="{{ route('about') }}" class="font-serif hover:text-primary {{ request()->routeIs('about') ? 'active' : '' }}"> À propos</a></li>
                 <li><a href="{{ route('contact') }}" class="font-serif hover:text-primary {{ request()->routeIs('contact') ? 'active' : '' }}">Contact</a></li>
@@ -26,7 +26,7 @@
         <!-- Réseaux sociaux -->
         <div>
             <h3 class="text-base font-serif font-semibold">Contacts :</h3>
-            <p class="font-serif text-[#4b5ca9ff] mb-4">support@asthmacare.com</p>
+            <p class="font-serif text-[#4b5ca9ff] mb-4">celestegakosso234@gmail.com</p>
 
             <div class="mb-4 md:mb-0">
                 <h3 class="text-base font-serif font-semibold mb-4">Suivez-nous sur :</h3>
@@ -37,7 +37,7 @@
                     <a href="https://github.com/mimy-GMC/AsthmaCare" class="text-[#4b5ca9ff] hover:text-[#7547a3ff] transition-colors text-2xl">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="#" class="text-[#4b5ca9ff] hover:text-[#7547a3ff] transition-colors text-2xl">
+                    <a href="https://www.linkedin.com/in/miryam-gakosso/" class="text-[#4b5ca9ff] hover:text-[#7547a3ff] transition-colors text-2xl">
                         <i class="fab fa-linkedin"></i>
                     </a>
                 </div>
@@ -52,8 +52,8 @@
 
         <div class="mt-2">
             <ul class="flex justify-center space-x-6">
-                <li><a href="#" class="text-sm font-serif text-gray-500 hover:text-[#7547a3ff]">Confidentialité</a></li>
-                <li><a href="#" class="text-sm font-serif text-gray-500 hover:text-[#7547a3ff]">Conditions d'utilisation</a></li>
+                <li><a href="{{ route('privacy') }}" class="text-sm font-serif text-gray-500 hover:text-[#7547a3ff]">Confidentialité</a></li>
+                <li><a href="{{ route('terms') }}" class="text-sm font-serif text-gray-500 hover:text-[#7547a3ff]">Conditions d'utilisation</a></li>
             </ul>
         </div>
     </div>

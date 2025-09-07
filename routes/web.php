@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -20,6 +21,17 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
+
+Route::get('/privacy', function () {
+    return view('privacy');
+})->name('privacy');
+
+Route::get('/terms', function () {
+    return view('terms');
+})->name('terms');
+
+// Route de pour l'envoi du formulaire de contact
+Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
 
 // Routes (accessible uniquement aux utilisateurs authentifiés ET email vérifié)
 Route::middleware(['auth', 'verified', 'sync.auth'])->group(function () {
