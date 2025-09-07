@@ -21,18 +21,22 @@
             <x-input-error :messages="$errors->get('password')" class="mt-2 text-red-500 text-sm" />
         </div>
 
-        <!-- Remember Me -->
-        <div class="mb-4 flex items-center">
-            <input id="remember_me" type="checkbox" name="remember" class="rounded border-gray-300 text-primary focus:ring-primary" />
-            <label for="remember_me" class="ms-2 text-gray-700 font-serif text-sm">Se souvenir de moi</label>
-        </div>
+        <div class="flex items-center justify-between mb-4">
+            <!-- Remember Me -->
+            <div class="flex items-center">
+                <input id="remember_me" type="checkbox" name="remember" class="rounded border-gray-300 text-primary focus:ring-primary" />
+                <label for="remember_me" class="ms-2 text-gray-700 font-serif text-sm">Se souvenir de moi</label>
+            </div>
 
-        <div class="flex items-center justify-between mt-4">
-            @if (Route::has('password.request'))
+             @if (Route::has('password.request'))
                 <a href="{{ route('password.request') }}" class="font-serif text-xs hover:underline">
                     Mot de passe oublié?
                 </a>
             @endif
+        </div>
+
+        <div class="flex items-center justify-between mt-4">
+            <a href="{{ route('register') }}" class="text-sm text-cyan-700 font-serif font-medium hover:underline hover:text-purple-700">Créez un compte</a>
 
             <button type="submit" class="btn-health btn-health-primary">
                 Se connecter

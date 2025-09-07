@@ -33,7 +33,7 @@
         </div>
 
         <div class="flex items-center justify-between mt-4">
-            <a href="{{ route('login') }}" class="text-sm font-serif hover:underline">Déjà inscrit ?</a>
+            <a href="{{ route('login') }}" class="text-sm text-cyan-700 font-serif font-medium hover:underline hover:text-purple-700">Déjà inscrit ?</a>
             <button type="submit" class="btn-health btn-health-primary">
                 S'inscrire
             </button>
