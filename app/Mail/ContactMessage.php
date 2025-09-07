@@ -25,7 +25,7 @@ class ContactMessage extends Mailable
      */
     public function build()
     {
-        return $this->subject("📩 Nouveau message de contact d'AsthmaCare")
+        return $this->subject("📩 Nouveau message du formulaire de contact AsthmaCare")
                     ->view('emails.contact');
     }
 }

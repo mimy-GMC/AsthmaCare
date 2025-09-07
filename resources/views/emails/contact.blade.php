@@ -14,7 +14,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>📩 Nouveau message de contact</h1>
+            <h1>Message venant du formulaire de contact AsthmaCare</h1>
         </div>
         
         <div class="content">
