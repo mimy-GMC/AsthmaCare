@@ -1,6 +1,4 @@
 import axios from 'axios';
-import { Chart, registerables } from 'chart.js';
-Chart.register(...registerables);
 
 // Générateur de couleurs dynamiques
 function generateColors(n) {

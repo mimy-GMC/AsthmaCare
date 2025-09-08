@@ -8,6 +8,10 @@ Alpine.start();
 // Import d'Axios
 import axios from 'axios';
 
+// Chart.js
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
+
 // Import des graphiques
 import { loadCharts } from './chart';
 

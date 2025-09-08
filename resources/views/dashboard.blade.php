@@ -49,9 +49,3 @@
         </div>
     </div>
 @endsection
-
-@push('scripts')
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-@endpush
-
