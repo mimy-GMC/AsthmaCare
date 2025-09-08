@@ -14,6 +14,7 @@ return new class extends Migration
     Schema::create('symptomes', function (Blueprint $table) {
         $table->id();
         $table->dateTime('date_debut'); // date + heure exacte de la crise
+        $table->string('nom'); // nom du symptôme
         $table->unsignedTinyInteger('intensite'); // 1 à 10
         $table->json('declencheurs')->nullable(); // pollen, pollution, etc.
         $table->text('commentaires')->nullable(); // description des symptômes

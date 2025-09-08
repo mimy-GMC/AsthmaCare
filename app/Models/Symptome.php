@@ -11,6 +11,7 @@ class Symptome extends Model
 
     protected $fillable = [
         'date_debut',
+        'nom',
         'intensite',
         'declencheurs',
         'commentaires',
@@ -19,6 +20,7 @@ class Symptome extends Model
 
     protected $casts = [
         'date_debut' => 'datetime',
+        'nom'         => 'string',
         'intensite' => 'integer',
         'declencheurs' => 'array', // pour gérer le champ JSON comme tableau
     ];

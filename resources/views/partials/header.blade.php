@@ -16,10 +16,10 @@
         <!-- Connexion / Profil -->
         <div class="hidden md:flex space-x-4">
             @auth
-                <a href="{{ route('profile.edit') }}" class="btn-health btn-health-secondary transition transform hover:scale-105 hover:text-primary">Profil</a>
+                <a href="{{ route('profile.edit') }}" class="btn-health btn-health-secondary font-serif transition transform hover:scale-105 hover:text-primary">Mon Profil</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="btn-health btn-health-primary transition transform hover:scale-105 hover:text-primary">Déconnexion</button>
+                    <button type="submit" class="btn-health btn-health-primary font-serif transition transform hover:scale-105 hover:text-primary">Déconnexion</button>
                 </form>
             @else
                 <a href="{{ route('login') }}" class="btn-health font-serif btn-health-secondary transition transform hover:scale-105">Connexion</a>
@@ -41,16 +41,16 @@
             <li><a href="{{ route('carte') }}">Carte</a></li>
 
             @auth
-                <li><a href="{{ route('profile.edit') }}" class="transition transform hover:scale-105">Profil</a></li>
+                <li><a href="{{ route('profile.edit') }}" class="font-serif transition transform hover:scale-105">Mon Profil</a></li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="transition transform hover:scale-105">Déconnexion</button>
+                        <button type="submit" class="font-serif transition transform hover:scale-105">Déconnexion</button>
                     </form>
                 </li>
             @else
-                <li><a href="{{ route('login') }}" class="text-dark hover:text-[#4b5ca9ff] text-lg font-semibold">Connexion</a></li>
-                <li><a href="{{ route('register') }}" class="text-dark hover:text-[#4b5ca9ff] text-lg font-semibold">Inscription</a></li>
+                <li><a href="{{ route('login') }}" class="text-dark font-serif hover:text-[#4b5ca9ff] text-lg font-semibold">Connexion</a></li>
+                <li><a href="{{ route('register') }}" class="text-dark font-serif hover:text-[#4b5ca9ff] text-lg font-semibold">Inscription</a></li>
             @endauth
         </ul>
     </div>

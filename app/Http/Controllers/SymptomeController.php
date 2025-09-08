@@ -37,6 +37,7 @@ class SymptomeController extends Controller
         try {
             $validated = $request->validate([
                 'date_debut'   => 'required|date',
+                'nom'         => 'required|string|max:255',
                 'intensite'    => 'required|integer|min:1|max:10',
                 'declencheurs' => 'nullable|array',
                 'declencheurs.*' => 'string',
@@ -45,6 +46,7 @@ class SymptomeController extends Controller
 
             $symptome = Auth::user()->symptomes()->create([
                 'date_debut'   => $validated['date_debut'],
+                'nom'         => $validated['nom'],
                 'intensite'    => $validated['intensite'],
                 'declencheurs' => $validated['declencheurs'] ?? [],
                 'commentaires' => $validated['commentaires'] ?? null,
